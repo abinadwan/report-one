@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نبض المبيعات | RetailPulse</title>
+    
+    <!-- Google Fonts: Tajawal for Arabic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.min.js"></script>
+    
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+    
+    <!-- =========================================
+         SIDEBAR NAVIGATION (يمين - RTL)
+         ========================================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">
+                <i class="fas fa-chart-line brand-icon"></i>
+            </div>
+            <h1 class="brand-title">نبض المبيعات</h1>
+        </div>
+        
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <a href="#dashboard" class="nav-link" data-target="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>لوحة التحكم</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#sales" class="nav-link" data-target="sales">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>سجل المبيعات</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#products" class="nav-link" data-target="products">
+                        <i class="fas fa-box"></i>
+                        <span>المنتجات والمخزون</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#customers" class="nav-link" data-target="customers">
+                        <i class="fas fa-users"></i>
+                        <span>العملاء</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reports" class="nav-link" data-target="reports">
+                        <i class="fas fa-file-alt"></i>
+                        <span>التقارير</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Quick Stats Footer -->
+        <div class="sidebar-footer">
+            <div class="quick-links">
+                <a href="#" class="quick-link" title="الإعدادات">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <a href="#" class="quick-link" title="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- =========================================
+         MAIN CONTENT AREA (وسط)
+         ========================================= -->
+    <main class="main-content">
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="back-button" id="backToDashboard">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <h2 class="page-title" id="pageTitle">لوحة التحكم</h2>
+            </div>
+            
+            <div class="header-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="themeToggle" title="تبديل الوضع (ليلي/نهاري)">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                
+                <!-- Upload Data Button -->
+                <button class="btn btn-primary" id="uploadDataBtn">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>رفع بيانات جديدة</span>
+                </button>
+                
+                <!-- User Profile Dropdown (Simulated) -->
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=4F46E5&color=fff" 
+                         alt="صورة المستخدم" 
+                         class="user-avatar">
+                    <span class="user-name">المدير</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- CONTENT CONTAINER -->
+        <div class="content-container">
+            
+            <!-- DASHBOARD OVERVIEW SECTION -->
+            <section id="dashboard" class="dashboard-section active">
+                
+                <!-- KPI CARDS GRID -->
+                <div class="kpi-grid">
+                    
+                    <!-- Card 1: Total Sales -->
+                    <div class="kpi-card trend-positive">
+                        <div class="kpi-icon trends-up">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 class="kpi-title">إجمالي المبيعات</h3>
+                            <p class="kpi-value" data-sales="245,890 ر.س">245,890 ر.س</p>
+                            <div class="kpi-trend">
+                                <span class="trend-badge positive">+12.5%</span>
+                                <span class="trend-period" data-mothd="هذا الشهر مقارنة بشهر الماضي">هذا الشهر مقارنة بشهر الماضي</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2: New Orders -->
+                    <div class="kpi-card trend-positive">
+                        <div class="kpi-icon trends-up">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 class="kpi-title">طلبات جديدة</h3>
+                            <p class="kpi-value" data-orders="1,247">1,247 طلب</p>
+                            <div class="kpi-trend">
+                                <span class="trend-badge positive">+8.3%</span>
+                                <span class="trend-period" data-mothd="منذ يوم"></span>منذ يوم</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3: Best Selling Product -->
+                    <div class="kpi-card trend-neutral">
+                        <div class="kpi-icon trends-up">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 class="kpi-title">المنتج الأكثر مبيعاً</h3>
+                            <p class="kpi-value kpi-text-small">سماعات بلوتوث Pro Max</p>
+                            <div class="kpi-sales-info">
+                                <span class="sales-count">542 بيع</span>
+                                <i class="fas fa-fire sales-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 4: Average Order Value -->
+                    <div class="kpi-card trend-positive">
+                        <div class="kpi-icon trends-up">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h3 class="kpi-title">متوسط قيمة الطلبية</h3>
+                            <p class="kpi-value" data-aov="197.20">197.20 ر.س</p>
+                            <div class="kpi-trend">
+                                <span class="trend-badge positive">+5.7%</span>
+                                <span class="trend-period" data-mothd="منذ أسبوع"></span>منذ أسبوع</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CHART SECTION -->
+                <div class="charts-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-chart-line"></i> نمو المبيعات الأسبوعي</h3>
+                            <div class="chart-controls">
+                                <button class="filter-btn active" data-filter="weekly">أسبوعي</button>
+                                <button class="filter-btn" data-filter="monthly">شهري</button>
+                                <button class="filter-btn" data-filter="yearly">سنوي</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesGrowthChart" height="150"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- SMART INSIGHTS PANEL -->
+                    <div class="smart-insights-card">
+                        <div class="insights-header">
+                            <h3 class="card-title"><i class="fas fa-lightbulb" class="glow-icon"></i> توصيات ذكية</h3>
+                            <button class="refresh-btn">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="insights-content">
+                            
+                            <!-- Insight 1 -->
+                            <div class="insight-card priority-high">
+                                <div class="insight-icon">
+                                    <span class="priority-dot high"></span>
+                                    <i class="fas fa-chart-area"></i>
+                                </div>
+                                <div class="insight-body">
+                                    <h4 class="insight-title">انخفاض ملحوظ في أيام الثلاثاء</h4>
+                                    <p class="insight-description">تم ملاحظة انخفاض بنسبة 18% في المبيعات بين كل اثنين. يُنصح بتنفيذ عرض خاص في منتصف الأسبوع.</p>
+                                </div>
+                                <div class="insight-actions">
+                                    <button class="insight-action btn-secondary">عرض التفاصيل</button>
+                                    <button class="insight-action btn-primary" data-action="suggest">تطبيق التوصية</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Insight 2 -->
+                            <div class="insight-card priority-medium">
+                                <div class="insight-icon">
+                                    <span class="priority-dot medium"></span>
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="insight-body">
+                                    <h4 class="insight-title">العملاء المخلصين يزدادون</h4>
+                                    <p class="insight-description">عميلو الـVIP زاد بنسبة 25% خلال الشهر الماضي، مما يشير فعالية برامج الولاء.</p>
+                                </div>
+                                <div class="insight-actions">
+                                    <button class="insight-action btn-secondary">عرض التفاصيل</button>
+                                    <button class="insight-action btn-primary" data-action="suggest">تطبيق التوصية</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Insight 3 -->
+                            <div class="insight-card priority-medium">
+                                <div class="insight-icon">
+                                    <span class="priority-dot medium"></span>
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                                <div class="insight-body">
+                                    <h4 class="insight-title">مخزون المنتج "السماعات" ينخفض</h4>
+                                    <p class="insight-description">مخزون المنتج الأكثر مبيعاً قد يستغرق 10 أيام لتنفذ. يُنصح بإرسال طلب جديد للمورد.</p>
+                                </div>
+                                <div class="insight-actions">
+                                    <button class="insight-action btn-secondary">عرض التفاصيل</button>
+                                    <button class="insight-action btn-primary" data-action="suggest">تطبيق التوصية</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+            
+        </div>
+        
+        <!-- DATA MODAL (Upload Data Dialog) -->
+        <div class="modal-overlay" id="uploadModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"><i class="fas fa-cloud-upload-alt"></i> رفع بيانات جديدة</h3>
+                    <button class="close-modal" data-close-modal>
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Drag and Drop Area -->
+                    <div class="drag-drop-area">
+                        <div class="upload-icon"><i class="fas fa-cloud-upload-alt fa-3x"></i></div>
+                        <p class="upload-text">سحب وإفلات ملف البيانات هنا</p>
+                        <p class="upload-subtext">أو انقر للتنقل نحو الملف</p>
+                    </div>
+                    
+                    <!-- Supported Formats -->
+                    <div class="supported-formats">
+                        <i class="fas fa-file-csv"></i><span>ملفات CSV</span>
+                        <i class="fas fa-file-excel"></i><span>Excel (.xlsx)</span>
+                        <i class="fab fa-google-drive"></i><span>Google Sheets</span>
+                    </div>
+                    
+                    <!-- Progress Bar (Hidden by default) -->
+                    <div class="upload-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="uploadProgress"></div>
+                        </div>
+                        <p class="upload-status">جارِ تحميل الملف...</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary close-modal" data-close-modal>إلغاء</button>
+                    <button class="btn btn-primary process-file"><i class="fas fa-check"></i> معالجة الملف ومعالجته</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- ==================== 
+         JAVASCRIPT LOGIC 
+         ==================== -->
+    <script src="script.js"></script>
+</body>
+</html>
