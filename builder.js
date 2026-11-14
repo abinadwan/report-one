@@ -1,0 +1,1 @@
+/* ---------- 10. Init ---------- */ loadTableList();showSection('create-table');
