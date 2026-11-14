@@ -300,8 +300,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!discardPending()) return;
     try {
       if (currentEditor) {
+        // The user confirmed discarding the pending edit, not saving it.
+        currentEditor.input.value = currentEditor.original;
         currentEditor.input.blur();
-        if (currentEditor) return; // Invalid edit, do not close.
+        if (currentEditor) return;
       }
       draft = {};
       db.closeTable();
