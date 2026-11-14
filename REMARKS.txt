@@ -1,0 +1,11 @@
+# RetailPulse Project
+- **db.html** – page for creating tables, adding columns, and inserting data.
+- **db.css** – styling for the database page.
+- **db.js** – light‑weight DB wrapper that stores everything in `localStorage`.
+- **builder.js** – UI logic for the database page.
+- **index.html** – main dashboard (original layout with navigation to the database page).
+- **style.css** & **script.js** – keep these from the original project unchanged.
+
+All files have been written to `C:\Users\Admin\Desktop\new Project\` and are ready for deployment.  Just open `db.html` or `index.html` in the browser and you can start creating tables, adding data, and navigating back to the dashboard.
+
+Happy coding! 🚀
