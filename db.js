@@ -45,7 +45,7 @@ class DBStorage {
           }
           return copy;
         });
-        const maxUsed = used.size ? Math.max(...used) : 0;
+        const maxUsed = [...used].reduce((maximum, id) => Math.max(maximum, id), 0);
         const counter = Number(table.nextId);
         const nextId = Number.isSafeInteger(counter) && counter > maxUsed ? counter : maxUsed + 1;
         migrated[name] = { columns: ["id", ...columns], columnDefs: defs, data, nextId };
