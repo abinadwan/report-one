@@ -54,6 +54,7 @@
 
       <!-- 1. إنشاء جدول -->
       <section id="create-table" class="active-section">
+        <p id="activeNotice" class="helper-text" role="status"></p>
         <div class="card">
           <div class="card-header"><h3><i class="fas fa-plus"></i> ابدأ بإنشاء جدول جديد</h3></div>
           <div class="card-body">
@@ -71,24 +72,29 @@
 
             <hr>
 
-            <button class="btn btn-success" id="saveTableBtn"><i class="fas fa-save"></i> حفظ الجدول</button>
+            <button class="btn btn-success" id="saveTableBtn"><i class="fas fa-save"></i> إنشاء وفتح الجدول</button>
           </div>
         </div>
       </section>
 
-      <!-- 2. إدخال بيانات -->
+      <!-- 2. Interactive table editor -->
       <section id="manage-data" class="hidden-section">
         <div class="card">
-          <div class="card-header"><h3>إدخال بيانات في جدولك</h3></div>
+          <div class="card-header"><h3><i class="fas fa-table"></i> محرر الجداول</h3></div>
           <div class="card-body">
-
-            <div class="form-group">
-              <label for="selectTable">اختر الجدول</label>
-              <select id="selectTable"></select>
+            <div class="table-toolbar">
+              <div class="form-group">
+                <label for="selectTable">الجداول المحفوظة</label>
+                <select id="selectTable" aria-label="الجداول المحفوظة"></select>
+              </div>
+              <button type="button" class="btn btn-primary" id="openTableBtn">فتح الجدول</button>
+              <button type="button" class="btn btn-secondary" id="closeTableBtn">إغلاق الجدول</button>
+              <button type="button" class="btn btn-secondary" id="exportCsvBtn">تصدير CSV</button>
+              <button type="button" class="btn btn-secondary" id="exportJsonBtn">تصدير JSON</button>
             </div>
-
+            <div id="editorStatus" class="helper-text" role="status" aria-live="polite"></div>
+            <p class="helper-text">اضغط Enter للانتقال إلى الحقل التالي، وEnter في آخر حقل لحفظ الصف والبدء بصف جديد. اضغط على خلية محفوظة لتعديلها.</p>
             <div id="dataTableContainer" class="table-responsive"></div>
-            <button class="btn btn-primary" id="addRowBtn"><i class="fas fa-plus"></i> إضافة صف</button>
           </div>
         </div>
       </section>
