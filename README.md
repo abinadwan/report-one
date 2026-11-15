@@ -1,68 +1,97 @@
 # جدولة | Jadwala
 
-**جدولة — جداولك، بياناتك، بطريقتك.**
+**جداولك، بياناتك، بطريقتك.** / **Your tables. Your data. Your way.**
 
-خدمة ويب عربية (RTL) لإنشاء جداول بيانات بأسلوب يشبه Excel، وتحديد أعمدة وحقول مخصصة، وتسجيل السجلات وتعديلها محليًا داخل المتصفح. المشروع عبارة عن موقع ثابت يعتمد على HTML وCSS وJavaScript، ولا يتطلب خادمًا لتشغيل الواجهة.
+A lightweight open-source bilingual (العربية / English) table builder and data-entry app. Create Excel-style tables directly in your browser without a backend.
 
-## الصفحات
+**Live:** https://abinadwan.github.io/report-one/ · **Editor:** https://abinadwan.github.io/report-one/db.html · **License:** [MIT](LICENSE)
 
-- **الصفحة التعريفية — `index.html`:** تعرض الخدمة الحالية ومميزاتها وطريقة استخدامها، مع مثال توضيحي لجدول وزر **ابدأ إنشاء جدول** للانتقال إلى `db.html`. تدعم المظهرين الفاتح والداكن والتجاوب مع الجوال.
-- **بناء قاعدة البيانات — `db.html`:** إنشاء جداول بأعمدة نصية أو رقمية أو تاريخية أو قوائم منسدلة محددة الخيارات، وإضافة الأعمدة وتعديل أنواعها مباشرة داخل صفحة إدخال البيانات دون قسم إدارة منفصل، وإدخال السجلات بسرعة عبر Enter، وتعديل الخلايا مباشرة، وإغلاق الجداول وإعادة فتحها، وتصديرها CSV أو JSON. تحتوي على رابط للعودة إلى لوحة التحكم وزر لتبديل المظهر.
+> **Important:** Jadwala is a browser-based table editor, **not** a server database or a native Excel (`.xlsx`) editor. Export is available as CSV (opens in Excel) or JSON. The sample table on the home page is illustrative.
 
-> **تنبيه:** الجدول المعروض في الصفحة التعريفية مثال بصري توضيحي فقط. الخدمة الحالية تنشئ جداول محلية وتسمح بتسجيل البيانات وتصدير CSV/JSON؛ لا توفّر تنزيل ملف Excel أصلي بصيغة `.xlsx` ولا تستورد ملفات Excel تلقائيًا.
+## العربية
 
-## التشغيل
+### المميزات
 
-يمكن فتح `index.html` في متصفح حديث لاستخدام الواجهة محليًا. وبديلًا عن ذلك، يمكن نشر الملفات كموقع ثابت باستخدام GitHub Pages.
+- **إنشاء الجداول:** اسم جدول وأعمدة من الأنواع **نص / رقم / تاريخ / قائمة منسدلة**؛ مع تخصيص خيارات القائمة.
+- **تسجيل البيانات:** صف إدخال دائم؛ اضغط **Enter** للتنقل بين الحقول وحفظ الصف في النهاية. أرقام **ID** تسلسلية تلقائية ولا يعاد استخدامها بعد حذف صف.
+- **تعديل الجدول:** اضغط على الخلية لتعديلها، أو على رمز القلم بجانب العمود لتغيير اسمه أو نوعه أو خياراته أو حذفه. إضافة الأعمدة متاحة في نفس صفحة إدخال البيانات.
+- **إدارة الصفوف:** **مسح القيم** يفرّغ الصف ويحافظ على ID؛ أما **حذف الصف** فيزيل السجل. تظهر رسالة تأكيد قبل العمليات الحذفية.
+- **إدارة الجلسات:** جدول نشط واحد في كل مرة. أغلقه قبل إنشاء جدول جديد أو فتح جدول محفوظ آخر.
+- **التصدير:** ملفات **CSV** بترميز UTF-8 مع BOM لفتح العربية في Excel، أو **JSON** يتضمن تعريفات الحقول والسجلات.
+- **اللغة والمظهر:** تبديل **العربية (RTL)** و**English (LTR)** من الصفحتين، مع الوضع الليلي/النهاري. لا يغيّر تبديل اللغة أسماء الجداول أو القيم التي سجلها المستخدم.
 
-1. افتح `index.html` للتعرف على الخدمة.
-2. اضغط **ابدأ إنشاء جدول** أو **افتح منشئ الجداول** للانتقال إلى `db.html`.
-3. أدخل اسم الجدول وأسماء الأعمدة وأنواعها ثم اضغط **إنشاء وفتح الجدول**. لا يمكن إنشاء جدول ثانٍ حتى إغلاق الجدول المفتوح.
-4. في **إدخال البيانات** اكتب في الصف الفارغ أسفل الجدول. اضغط **Enter** للانتقال إلى الحقل التالي، وعند آخر حقل يُحفظ الصف وتظهر خانات جديدة تلقائيًا.
-5. لتعديل بيانات محفوظة، اضغط على الخلية، واكتب قيمتها ثم اضغط Enter أو انتقل إلى خلية أخرى. **Escape** يلغي التعديل.
-6. من صفحة **إدخال البيانات** اضغط رمز القلم بجانب اسم أي عمود لتعديل **اسمه ونوعه** (نص، رقم، تاريخ، قائمة منسدلة)، أو اختيار **حذف العمود** بعد تأكيد واضح. حذف العمود يزيل قيمه من السجلات، ولا يمكن حذف ID أو آخر عمود بيانات. عند اختيار قائمة منسدلة أدخل الخيارات، خيارًا في كل سطر، ثم احفظ. تنعكس الأنواع فعليًا على الحقول والتحقق من القيم.
-7. لإضافة عمود إلى جدول مفتوح، اضغط **إضافة عمود** فوق الجدول أو زر + في رأس الجدول، ثم أدخل اسمه ونوعه وخياراته عند الحاجة واحفظ. يظهر العمود في نفس جدول إدخال البيانات، وتبقى خلايا السجلات السابقة في هذا العمود فارغة.
-8. لكل سجل داخل جدول البيانات، استخدم **مسح القيم** لتفريغ خلاياه مع إبقاء ID، أو **حذف الصف** لإزالة السجل بالكامل. كلا الإجرائين يتطلب تأكيدًا، ولا تُعاد أرقام المعرفات المحذوفة.
-9. اضغط **إغلاق الجدول** مع الحفاظ على السجلات، ثم اختره واضغط **فتح الجدول** للعودة إليه.
-10. استخدم **تصدير CSV** أو **تصدير JSON** لحفظ الجدول على جهازك، ثم رابط **لوحة التحكم** للعودة إلى الصفحة التعريفية.
+### التشغيل
 
-تُحمّل الخطوط والأيقونات من خدمات خارجية؛ قد تتأثر بعض عناصر العرض في حال عدم توفر اتصال بالإنترنت.
+1. افتح [الصفحة الرئيسية](https://abinadwan.github.io/report-one/) ثم اختر **ابدأ إنشاء جدول**.
+2. أدخل اسم الجدول وأسماء الأعمدة وأنواعها واضغط **إنشاء وفتح الجدول**.
+3. أدخل القيم في الصف الأخير باستخدام **Enter**، أو اضغط **حفظ الصف**.
+4. عدّل الخلايا والحقول مباشرة، أو استخدم أزرار مسح القيم وحذف الصف.
+5. أغلق الجدول قبل فتح آخر، أو صدّر **CSV / JSON** للاحتفاظ بنسخة.
 
-## هيكل المشروع
+### التخزين والقيود
 
-| المسار | الوظيفة |
+تُحفظ البيانات داخل **localStorage** في المتصفح، وليس على خادم. لا توجد حسابات أو مزامنة بين الأجهزة. **مسح بيانات الموقع أو تغيير الجهاز قد يؤدي إلى فقد السجلات.** صدّر JSON دوريًا؛ الاستيراد والاستعادة من الواجهة **غير متاحين حاليًا**. لا تستخدم النموذج الأولي للبيانات الحساسة أو الإنتاجية.
+
+تبقى مفاتيح التخزين القديمة متوافقة:
+- `retailpulse-db` — الجداول والسجلات.
+- `retailpulse-active-table` — الجدول المفتوح.
+- `retailpulse-theme` — المظهر.
+- `jadwala-lang` — اللغة.
+
+قبل ترحيل البيانات القديمة تُحفظ نسخة محلية تحت `retailpulse-db-backup-before-v2` عند أول كتابة. توجد أيضًا لقطات محلية قبل تعديل التعريفات والعمليات الحذفية، لكنها **لا تغني عن التصدير الخارجي**. لا يُدعم التحرير المتزامن من عدة تبويبات.
+
+---
+
+## English
+
+### Features
+
+- **Custom tables:** Define text, number, date and dropdown columns, with your own dropdown options.
+- **Fast entry:** A persistent new row; **Enter** advances and saves. IDs are sequential and never reused.
+- **Edit in place:** Edit saved cells, rename and change column types or options, add columns and delete columns directly in the grid.
+- **Row actions:** **Clear values** preserves the record and ID; **Delete row** removes it. Destructive changes require confirmation.
+- **Table sessions:** One active table at a time. Close a table to open or create another.
+- **Export:** **CSV** (UTF-8 with BOM; opens in Excel) or **JSON** including data and schema.
+- **Bilingual UI:** Switch between **Arabic (RTL)** and **English (LTR)** from either page. Light and dark themes are supported. User-authored values are never translated.
+
+### Getting started
+
+1. Open the [live app](https://abinadwan.github.io/report-one/) and select **Create a table**.
+2. Name the table, add columns and choose their types, then select **Create and open table**.
+3. Enter records in the final row with **Enter** or **Save row**.
+4. Edit cells and column definitions in place, clear values or delete rows.
+5. Close the active table before opening another, and export **CSV / JSON** if needed.
+
+### Storage and limitations
+
+Table data lives in browser **localStorage**, not a server. There is no login, multi-device sync or automatic cloud backup. Clearing site storage can remove records. Export JSON regularly; **import/restore via the UI is not yet supported**. Do not store sensitive or production-critical information.
+
+Existing storage keys remain unchanged for compatibility; language preference uses `jadwala-lang`. The app stores local safety snapshots before migration and destructive edits, but they are not external backups. Concurrent editing from multiple tabs is unsupported.
+
+### Run locally
+
+Open `index.html` in a modern browser or host the folder as a static site. No build step or package manager is required. Google Fonts and Font Awesome are loaded from external CDNs when available.
+
+## Project files
+
+| File | Purpose |
 | --- | --- |
-| `index.html` | الصفحة التعريفية ومداخل الوصول إلى منشئ الجداول |
-| `home.css` | تصميم الصفحة التعريفية وتجاوبها مع الأجهزة المختلفة |
-| `style.css` | التنسيق العام ومتغيرات الثيم المشتركة |
-| `script.js` | كود لوحة المبيعات التجريبية السابق؛ محفوظ في المستودع لكنه غير محمّل في الصفحة الرئيسية الحالية |
-| `db.html` | صفحة بناء الجداول وإدارة السجلات |
-| `db.css` | تنسيق صفحة قاعدة البيانات وتجاوبها |
-| `db.js` | التخزين والتحقق من الأنواع وخيارات القوائم، تعديل التعريفات، الترقيم التسلسلي، وترحيل البيانات القديمة |
-| `builder.js` | محرر الجدول، إدارة الأعمدة وخيارات القوائم، التنقل بالكيبورد، التعديل المباشر، الجلسات والتصدير والثيم |
-| `.github/workflows/static.yml` | نشر الموقع الثابت إلى GitHub Pages عند الدفع إلى `main` |
+| `index.html` | Service landing page |
+| `home.css` | Responsive landing styles |
+| `db.html` | Table creation and data-entry UI |
+| `db.css` | Responsive editor styles and RTL/LTR adjustments |
+| `builder.js` | Grid interactions, keyboard navigation, column/row actions and export |
+| `db.js` | Local storage, validation, schema migration and data operations |
+| `i18n.js` | Shared Arabic/English translations and language preference |
+| `style.css` | Shared styles and design tokens |
+| `script.js` | Legacy simulated dashboard code, not loaded by the current pages |
+| `.github/workflows/static.yml` | Static GitHub Pages deployment from `main` |
+| `LICENSE` | MIT open-source license |
 
-## التخزين والقيود
+## Licensing and contribution
 
-- يمتد محرر الجداول ليشغل عرض مساحة العمل المتاحة، مع تمرير أفقي عند زيادة الأعمدة، دون تحديد ارتفاع ثابت لمحتوى البطاقة.
-- تُحفظ بيانات الجداول في `localStorage` داخل المتصفح تحت المفتاح `retailpulse-db`. **هذه ليست قاعدة بيانات خادمية**؛ ولا توجد مزامنة بين الأجهزة أو حسابات مستخدمين.
-- قد تضيع البيانات عند مسح بيانات الموقع أو تغيير المتصفح أو الجهاز. يمكن تصدير الجداول إلى CSV أو JSON، لكن **استيرادها واستعادة النسخة الاحتياطية عبر الواجهة غير متاحين بعد**.
-- يُحفظ عداد ID رقمي مستقل ومتزايد لكل جدول، مع منع إعادة استخدام المعرف بعد إنشاء الصف.
-- تُحفظ أنواع الأعمدة (نص، رقم، تاريخ، قائمة منسدلة) وخيارات القوائم في تعريف الجدول. تظهر حقول إدخال مناسبة لكل نوع، ويُرفض إدخال رقم أو تاريخ غير صالح أو خيار غير موجود في القائمة.
-- عند تغيير نوع عمود يحتوي بيانات، يفحص التطبيق القيم المحفوظة أولًا ويمنع التغيير إن كانت غير متوافقة؛ ويطلب تأكيد التحويلات عند وجود سجلات. لا تُحذف السجلات أثناء إضافة عمود جديد.
-- قبل أول تعديل على تعريف الأعمدة، تُحفظ لقطة من قاعدة البيانات تحت المفتاح `retailpulse-db-backup-before-schema-edit` إن توفرت مساحة التخزين. وقبل حذف عمود أو مسح بيانات صف أو حذف صف، تُحفظ نسخة من الحالة السابقة تحت المفتاح `retailpulse-db-backup-before-last-destructive-edit`، وتُستبدل عند الإجراء التالي. هذه نسخ محلية داخل المتصفح وليست ملفات استعادة جاهزة؛ يوصى بتصدير JSON قبل الحذف.
-- الجداول القديمة تُرحّل في الذاكرة مع حفظ النسخة الخام القديمة تحت المفتاح `retailpulse-db-backup-before-v2` قبل أول كتابة على قاعدة البيانات الجديدة. إذا كانت IDs القديمة نصية، تحفظ قيمها في `legacyId` مع تخصيص أرقام تسلسلية جديدة.
-- لا توجد مزامنة بين علامات تبويب المتصفح؛ لا تعدّل البيانات نفسها من تبويبين في الوقت نفسه.
-- لا تستخدم هذه النسخة لتخزين معلومات حساسة أو بيانات أعمال إنتاجية.
+The project’s **original source code** is available under the [MIT License](LICENSE). Third-party assets (such as Tajawal via Google Fonts and Font Awesome) retain **their own licenses**. The project license does not change their terms.
 
-## التوافق مع النسخ السابقة
+The app is an **early prototype**; further work could include import/restore, record search, synchronization and a real backend. Issues and pull requests are welcome through [GitHub](https://github.com/abinadwan/report-one).
 
-تم تغيير اسم الخدمة الظاهر إلى **جدولة (Jadwala)** دون تغيير اسم مستودع GitHub أو مسارات الصفحات أو مفاتيح `localStorage` القديمة (مثل `retailpulse-db`)؛ حتى تبقى الجداول المحفوظة في المتصفح قابلة للقراءة.
-
-## النشر
-
-يحتوي المشروع على GitHub Actions workflow في `.github/workflows/static.yml` لنشر الملفات إلى GitHub Pages بعد الدفع إلى الفرع `main` (أو تشغيل الإجراء يدويًا). يتطلب النشر إعداد GitHub Pages والصلاحيات المناسبة داخل المستودع.
-
-## حالة المشروع
-
-نسخة أولية قيد التطوير. يتوفر تعديل الخلايا وأسماء وأنواع الأعمدة وحذفها ومسح قيم الصفوف وحذفها مباشرة من الجدول، بالإضافة إلى التصدير، وما زال مطلوبًا لاحقًا: حذف السجلات والبحث، واستيراد النسخ الاحتياطية، وربط الجداول الفعلية بلوحة التحكم والتقارير، واختبارات متصفح آلية كاملة.
+© 2026 Jadwala contributors.
