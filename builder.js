@@ -214,9 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.className = "data-table editor-table";
     const thead = document.createElement("thead");
     const header = document.createElement("tr");
-    [...table.columns, ...(active ? ["إجراء"] : [])].forEach((column) => {
+    [...table.columns, ...(active ? [null] : [])].forEach((column, index) => {
       const th = document.createElement("th");
-      if (active && column === "إجراء") {
+      if (active && index === table.columns.length) {
         const plus = document.createElement("button");
         plus.type = "button";
         plus.className = "column-add-button";
