@@ -7,6 +7,7 @@ class DBStorage {
     this.activeKey = "retailpulse-active-table";
     this.backupKey = "retailpulse-db-backup-before-v2";
     this.schemaBackupKey = "retailpulse-db-backup-before-schema-edit";
+    this.destructiveBackupKey = "retailpulse-db-backup-before-last-destructive-edit";
     this.readOnly = false;
     this.migrationPending = false;
     this.original = null;
@@ -88,7 +89,7 @@ class DBStorage {
     }
   }
 
-  persist(next, schemaChange = false) {
+  persist(next, schemaChange = false, destructive = false) {
     if (this.readOnly)
       throw new Error("تعذر قراءة البيانات السابقة؛ التحرير مقفل حتى لا تُستبدل البيانات.");
     try {
@@ -97,6 +98,9 @@ class DBStorage {
         this.storage.setItem(this.backupKey, this.original);
       if (schemaChange && existing !== null && this.storage.getItem(this.schemaBackupKey) === null)
         this.storage.setItem(this.schemaBackupKey, existing);
+      // Keep the immediately preceding database state before deleting any stored data.
+      if (destructive && existing !== null)
+        this.storage.setItem(this.destructiveBackupKey, existing);
       this.storage.setItem(this.key, JSON.stringify(next));
       this.db = next;
       this.migrationPending = false;
@@ -203,6 +207,98 @@ class DBStorage {
       data: table.data.map((row) => ({ ...row, [def.name]: null }))
     };
     this.persist({ ...this.db, [name]: updated }, true);
+  }
+
+  previewColumnChange(name, previousName, definition) {
+    const table = this.requireOpen(name);
+    const prior = table.columnDefs.find((def) => def.name === previousName);
+    if (!prior) throw new Error("العمود المراد تعديله غير موجود");
+    const nextDef = this.normalizeDef(definition);
+    if (nextDef.name !== previousName && table.columns.includes(nextDef.name))
+      throw new Error("اسم العمود الجديد مستخدم في الجدول");
+    if (nextDef.name === previousName && JSON.stringify(prior) === JSON.stringify(nextDef))
+      return { changed: false, converted: 0, rows: table.data, definition: nextDef };
+
+    let converted = 0;
+    const rows = table.data.map((row) => {
+      const oldValue = row[previousName];
+      let nextValue = null;
+      if (oldValue !== null && oldValue !== undefined && oldValue !== "") {
+        try {
+          nextValue = this.validate(nextDef, oldValue, true);
+        } catch (error) {
+          throw new Error("السجل " + row.id + ": " + error.message + " — عدّل بياناته قبل تغيير نوع العمود");
+        }
+      }
+      if (typeof oldValue !== typeof nextValue || String(oldValue) !== String(nextValue))
+        converted++;
+      const nextRow = { ...row };
+      if (previousName !== nextDef.name) delete nextRow[previousName];
+      nextRow[nextDef.name] = nextValue;
+      return nextRow;
+    });
+    return { changed: true, converted, rows, definition: nextDef };
+  }
+
+  updateColumn(name, previousName, definition) {
+    const table = this.requireOpen(name);
+    const preview = this.previewColumnChange(name, previousName, definition);
+    if (!preview.changed) return false;
+    const updated = {
+      ...table,
+      columns: table.columns.map((column) =>
+        column === previousName ? preview.definition.name : column),
+      columnDefs: table.columnDefs.map((def) =>
+        def.name === previousName ? preview.definition : def),
+      data: preview.rows
+    };
+    this.persist({ ...this.db, [name]: updated }, true);
+    return true;
+  }
+
+  deleteColumn(name, column) {
+    const table = this.requireOpen(name);
+    if (!table.columnDefs.some((def) => def.name === column))
+      throw new Error("لا يمكن حذف ID أو عمود غير موجود");
+    if (table.columnDefs.length <= 1)
+      throw new Error("يجب الإبقاء على عمود بيانات واحد على الأقل");
+    const updated = {
+      ...table,
+      columns: table.columns.filter((value) => value !== column),
+      columnDefs: table.columnDefs.filter((def) => def.name !== column),
+      data: table.data.map((row) => {
+        const next = { ...row };
+        delete next[column];
+        return next;
+      })
+    };
+    this.persist({ ...this.db, [name]: updated }, true, true);
+  }
+
+  clearRow(name, id) {
+    const table = this.requireOpen(name);
+    const index = table.data.findIndex((row) => row.id === id);
+    if (index < 0) throw new Error("الصف غير موجود");
+    const original = table.data[index];
+    if (table.columnDefs.every((def) => original[def.name] == null || original[def.name] === ""))
+      return false;
+    const data = table.data.map((row, i) => {
+      if (i !== index) return row;
+      const cleared = { ...row };
+      table.columnDefs.forEach((def) => { cleared[def.name] = null; });
+      return cleared;
+    });
+    this.persist({ ...this.db, [name]: { ...table, data } }, false, true);
+    return true;
+  }
+
+  deleteRow(name, id) {
+    const table = this.requireOpen(name);
+    if (!table.data.some((row) => row.id === id))
+      throw new Error("الصف غير موجود");
+    const data = table.data.filter((row) => row.id !== id);
+    // The counter is deliberately untouched; IDs are never reused.
+    this.persist({ ...this.db, [name]: { ...table, data } }, false, true);
   }
 
   previewSchema(name, definitions) {
