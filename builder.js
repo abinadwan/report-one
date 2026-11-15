@@ -224,7 +224,12 @@ document.addEventListener("DOMContentLoaded", () => {
         plus.setAttribute("aria-label", "إضافة عمود جديد");
         plus.title = "إضافة عمود جديد";
         plus.addEventListener("click", () => openColumnPanel());
-        th.append(plus);
+        const heading = document.createElement("div");
+        heading.className = "column-heading";
+        const label = document.createElement("span");
+        label.textContent = "إجراءات";
+        heading.append(label, plus);
+        th.append(heading);
       } else if (active && column !== "id") {
         const label = document.createElement("span");
         label.className = "column-heading-name";
@@ -233,8 +238,8 @@ document.addEventListener("DOMContentLoaded", () => {
         modify.type = "button";
         modify.className = "column-edit-button";
         modify.innerHTML = '<i class="fas fa-pen" aria-hidden="true"></i>';
-        modify.setAttribute("aria-label", "تعديل نوع العمود " + column);
-        modify.title = "تعديل نوع العمود " + column;
+        modify.setAttribute("aria-label", "تعديل اسم أو نوع العمود أو حذف العمود " + column);
+        modify.title = "تعديل أو حذف العمود " + column;
         modify.addEventListener("click", () => openColumnPanel(column));
         const group = document.createElement("div");
         group.className = "column-heading";
@@ -317,7 +322,43 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         tr.append(td);
       });
-      if (active) tr.append(document.createElement("td"));
+      if (active) {
+        const actions = document.createElement("td");
+        actions.className = "row-actions-cell";
+        const buttons = document.createElement("div");
+        buttons.className = "row-actions";
+        const clear = document.createElement("button");
+        clear.type = "button";
+        clear.className = "row-action-button row-clear";
+        clear.textContent = "مسح القيم";
+        clear.title = "مسح قيم الصف رقم " + row.id + " مع إبقاء الرقم التسلسلي";
+        clear.setAttribute("aria-label", clear.title);
+        clear.addEventListener("click", () => {
+          if (!window.confirm("مسح جميع قيم الصف رقم " + row.id + "؟ سيبقى رقم ID والسجل موجودين.")) return;
+          try {
+            const changed = db.clearRow(name, row.id);
+            renderGrid();
+            notify(changed ? "تم مسح بيانات الصف رقم " + row.id : "الصف فارغ بالفعل");
+          } catch (error) { notify(error.message || "تعذر مسح بيانات الصف", true); }
+        });
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "row-action-button row-delete";
+        remove.textContent = "حذف الصف";
+        remove.title = "حذف الصف رقم " + row.id + " بالكامل";
+        remove.setAttribute("aria-label", remove.title);
+        remove.addEventListener("click", () => {
+          if (!window.confirm("حذف الصف رقم " + row.id + " بالكامل؟ لن تتغير معرفات الصفوف الأخرى.")) return;
+          try {
+            db.deleteRow(name, row.id);
+            renderGrid();
+            notify("تم حذف الصف رقم " + row.id);
+          } catch (error) { notify(error.message || "تعذر حذف الصف", true); }
+        });
+        buttons.append(clear, remove);
+        actions.append(buttons);
+        tr.append(actions);
+      }
       tbody.append(tr);
     });
 
@@ -420,10 +461,12 @@ document.addEventListener("DOMContentLoaded", () => {
     editingColumn = def?.name || null;
     $("columnEditorTitle").textContent = def ? "تعديل العمود: " + def.name : "إضافة عمود جديد";
     $("columnEditorDescription").textContent = def
-      ? "غيّر نوع الحقل أو خياراته؛ سنراجع توافق البيانات المحفوظة قبل الاعتماد."
+      ? "عدّل اسم العمود أو نوعه أو خياراته، أو احذفه. لن تُستبدل بيانات غير متوافقة دون تنبيه."
       : "حدّد اسم العمود ونوعه؛ يظهر بعد الحفظ مباشرة في جدول البيانات.";
     columnNameInput.value = def?.name || "";
-    columnNameInput.readOnly = !!def;
+    columnNameInput.readOnly = false;
+    $("deleteColumnBtn").hidden = !def;
+    $("deleteColumnBtn").disabled = !def || db.getColumnDefs(tableName).length <= 1;
     newType.value = def?.type || "text";
     newOpts.value = def?.options?.join("\n") || "";
     showOptions(newType, newOptsGroup);
@@ -432,7 +475,14 @@ document.addEventListener("DOMContentLoaded", () => {
     schemaDirty = false;
     columnPanel.hidden = false;
     columnPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
-    (def ? newType : columnNameInput).focus();
+    columnNameInput.focus();
+  }
+
+  function confirmDiscardGridDraft() {
+    if (!hasDraft() && !(editor && editor.input.value !== editor.original)) return true;
+    if (!window.confirm("هناك بيانات قيد الإدخال أو تعديل خلية لم يُحفظ. هل تريد تجاهلها ومتابعة العملية؟")) return false;
+    discardEditor();
+    return true;
   }
 
   function saveColumn() {
@@ -442,26 +492,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (def.type === "select") def.options = getOptions(newOpts);
     try {
       if (editingColumn) {
-        const definitions = db.getColumnDefs(tableName).map((item) =>
-          item.name === editingColumn ? def : item
-        );
-        const preview = db.previewSchema(tableName, definitions);
+        const preview = db.previewColumnChange(tableName, editingColumn, def);
         if (!preview.changed) {
           closeColumnPanel(true);
-          notify("نوع العمود لم يتغير");
+          notify("لا يوجد تعديل على العمود");
           return;
         }
         if (db.getData(tableName).length > 0) {
           const warning = preview.converted
-            ? "سيتم تحويل " + preview.converted + " قيمة لتتوافق مع نوع الحقل الجديد. هل تعتمد التعديل؟"
-            : "سيتم تحديث نوع الحقل وخياراته مع الاحتفاظ بالسجلات. هل تعتمد التعديل؟";
+            ? "سيتم تحويل " + preview.converted + " قيمة مع تحديث اسم أو نوع العمود. هل تعتمد التعديل؟"
+            : "سيتم تغيير تعريف العمود مع الاحتفاظ ببيانات الصفوف. هل تعتمد التعديل؟";
           if (!window.confirm(warning)) return;
         }
-        db.updateSchema(tableName, definitions);
+        if (!confirmDiscardGridDraft()) return;
+        db.updateColumn(tableName, editingColumn, def);
       } else {
+        // Validate before abandoning an in-progress row.
+        db.normalizeDef(def);
+        if (!confirmDiscardGridDraft()) return;
         db.addColumn(tableName, def);
       }
-      const action = editingColumn ? "تم تحديث نوع العمود" : "تمت إضافة العمود إلى الجدول";
+      const action = editingColumn ? "تم حفظ تعديل العمود" : "تمت إضافة العمود إلى الجدول";
       closeColumnPanel(true);
       refresh(tableName);
       notify(action);
@@ -469,6 +520,29 @@ document.addEventListener("DOMContentLoaded", () => {
       $("columnEditorStatus").textContent = error.message || "تعذر حفظ العمود";
       notify(error.message || "تعذر حفظ العمود", true);
     }
+  }
+
+  function deleteCurrentColumn() {
+    const tableName = getActive();
+    const column = editingColumn;
+    if (!tableName || !column) return notify("اختر عمودًا موجودًا لحذفه", true);
+    const definitions = db.getColumnDefs(tableName);
+    if (definitions.length <= 1)
+      return notify("يجب الإبقاء على عمود بيانات واحد على الأقل", true);
+    const rowsWithValues = db.getData(tableName).filter((row) =>
+      row[column] !== null && row[column] !== undefined && row[column] !== "").length;
+    const warning = "هل تريد حذف العمود «" + column + "» نهائيًا؟\n" +
+      "ستُحذف قيمه من جميع السجلات" +
+      (rowsWithValues ? " (" + rowsWithValues + " صفوف تحتوي بيانات)" : "") +
+      "، ولن تتأثر الأعمدة الأخرى أو أرقام ID.\nيمكنك تصدير JSON قبل الحذف للاحتفاظ بنسخة خارجية.";
+    if (!window.confirm(warning)) return;
+    if (!confirmDiscardGridDraft()) return;
+    try {
+      db.deleteColumn(tableName, column);
+      closeColumnPanel(true);
+      refresh(tableName);
+      notify("تم حذف العمود «" + column + "»");
+    } catch (error) { notify(error.message || "تعذر حذف العمود", true); }
   }
   function switchPage(page) {
     if (page === "create-table" && getActive()) {
@@ -532,6 +606,7 @@ document.addEventListener("DOMContentLoaded", () => {
   newOpts.addEventListener("input", () => { schemaDirty = true; });
   columnNameInput.addEventListener("input", () => { schemaDirty = true; });
   $("saveColumnBtn").addEventListener("click", saveColumn);
+  $("deleteColumnBtn").addEventListener("click", deleteCurrentColumn);
   $("cancelColumnPanelBtn").addEventListener("click", () => closeColumnPanel());
 
   function csvField(value) {
