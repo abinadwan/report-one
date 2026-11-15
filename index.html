@@ -1,338 +1,183 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة نبض المبيعات | RetailPulse</title>
-    
-    <!-- Google Fonts: Tajawal for Arabic Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Chart.js CDN for Data Visualization -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.min.js"></script>
-    
-    <!-- FontAwesome CDN for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="أنشئ جداول بيانات شبيهة بإكسل، حدد الأعمدة وأنواع الحقول، وسجّل البيانات وعدّلها بسهولة في متصفحك.">
+  <meta name="theme-color" content="#4f46e5">
+  <title>إنشاء جداول البيانات وتسجيل السجلات | RetailPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
 </head>
-<body class="light-mode">
-    
-    <!-- =========================================
-         SIDEBAR NAVIGATION (يمين - RTL)
-         ========================================= -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="brand-logo">
-                <i class="fas fa-chart-line brand-icon"></i>
-            </div>
-            <h1 class="brand-title">نبض المبيعات</h1>
-        </div>
-        
-        <!-- Navigation Menu -->
-        <nav class="sidebar-nav">
-            <ul class="nav-list">
-                <li class="nav-item active">
-                    <a href="#dashboard" class="nav-link" data-target="dashboard">
-                        <i class="fas fa-home"></i>
-                        <span>لوحة التحكم</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#sales" class="nav-link" data-target="sales">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>سجل المبيعات</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#products" class="nav-link" data-target="products">
-                        <i class="fas fa-box"></i>
-                        <span>المنتجات والمخزون</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#customers" class="nav-link" data-target="customers">
-                        <i class="fas fa-users"></i>
-                        <span>العملاء</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#reports" class="nav-link" data-target="reports">
-                        <i class="fas fa-file-alt"></i>
-                        <span>التقارير</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        
-        <!-- Quick Stats Footer -->
-        <div class="sidebar-footer">
-            <div class="quick-links">
-                <a href="#" class="quick-link" title="الإعدادات">
-                    <i class="fas fa-cog"></i>
-                </a>
-                <a href="#" class="quick-link" title="تسجيل الخروج">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
-            </div>
-        </div>
-    </aside>
-    
-    <!-- =========================================
-         MAIN CONTENT AREA (وسط)
-         ========================================= -->
-    <main class="main-content">
-        <!-- TOP HEADER -->
-        <header class="top-header">
-            <div class="header-left">
-                <button class="back-button" id="backToDashboard">
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-                <h2 class="page-title" id="pageTitle">لوحة التحكم</h2>
-            </div>
-            
-            <div class="header-actions">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" id="themeToggle" title="تبديل الوضع (ليلي/نهاري)">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-                
-                <!-- Database page navigation -->
-                <a href="db.html" class="btn btn-secondary" title="الانتقال إلى إدارة قاعدة البيانات">
-                    <i class="fas fa-database" aria-hidden="true"></i>
-                    <span>قاعدة البيانات</span>
-                </a>
+<body class="landing-page light-mode">
+  <header class="lp-header">
+    <div class="lp-wrap lp-header-inner">
+      <a class="lp-brand" href="index.html" aria-label="RetailPulse - الصفحة الرئيسية">
+        <span class="lp-logo"><i class="fas fa-table-cells" aria-hidden="true"></i></span>
+        <span>
+          <strong class="lp-brand-name">RetailPulse</strong>
+          <small class="lp-brand-sub">إنشاء وتنظيم جداول البيانات</small>
+        </span>
+      </a>
+      <nav class="lp-header-actions" aria-label="التنقل الرئيسي">
+        <a class="lp-link" href="#features">مميزات الخدمة</a>
+        <a class="lp-link" href="#how-it-works">كيف تبدأ؟</a>
+        <button id="homeThemeToggle" class="lp-theme" type="button" title="تبديل المظهر" aria-label="تفعيل الوضع الليلي" aria-pressed="false">
+          <i id="homeThemeIcon" class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+        <a class="lp-button primary" href="db.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> ابدأ الآن</a>
+      </nav>
+    </div>
+  </header>
 
-                <!-- Upload Data Button -->
-                <button class="btn btn-primary" id="uploadDataBtn">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <span>رفع بيانات جديدة</span>
-                </button>
-                
-                <!-- User Profile Dropdown (Simulated) -->
-                <div class="user-profile">
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=4F46E5&color=fff" 
-                         alt="صورة المستخدم" 
-                         class="user-avatar">
-                    <span class="user-name">المدير</span>
-                </div>
-            </div>
-        </header>
-        
-        <!-- CONTENT CONTAINER -->
-        <div class="content-container">
-            
-            <!-- DASHBOARD OVERVIEW SECTION -->
-            <section id="dashboard" class="dashboard-section active">
-                <!-- Database builder shortcut -->
-                <div class="card" style="margin-bottom: 24px;">
-                    <div class="card-body" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-                        <div>
-                            <h3 class="card-title"><i class="fas fa-database" aria-hidden="true"></i> إدارة البيانات</h3>
-                            <p>أنشئ جداول قاعدة البيانات وأضف الأعمدة والسجلات من صفحة البناء.</p>
-                        </div>
-                        <a href="db.html" class="btn btn-primary" style="text-decoration: none;">
-                            <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                            <span>بناء قاعدة البيانات</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- KPI CARDS GRID -->
-                <div class="kpi-grid">
-                    
-                    <!-- Card 1: Total Sales -->
-                    <div class="kpi-card trend-positive">
-                        <div class="kpi-icon trends-up">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3 class="kpi-title">إجمالي المبيعات</h3>
-                            <p class="kpi-value" data-sales="245,890 ر.س">245,890 ر.س</p>
-                            <div class="kpi-trend">
-                                <span class="trend-badge positive">+12.5%</span>
-                                <span class="trend-period" data-mothd="هذا الشهر مقارنة بشهر الماضي">هذا الشهر مقارنة بشهر الماضي</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Card 2: New Orders -->
-                    <div class="kpi-card trend-positive">
-                        <div class="kpi-icon trends-up">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3 class="kpi-title">طلبات جديدة</h3>
-                            <p class="kpi-value" data-orders="1,247">1,247 طلب</p>
-                            <div class="kpi-trend">
-                                <span class="trend-badge positive">+8.3%</span>
-                                <span class="trend-period" data-mothd="منذ يوم"></span>منذ يوم</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Card 3: Best Selling Product -->
-                    <div class="kpi-card trend-neutral">
-                        <div class="kpi-icon trends-up">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3 class="kpi-title">المنتج الأكثر مبيعاً</h3>
-                            <p class="kpi-value kpi-text-small">سماعات بلوتوث Pro Max</p>
-                            <div class="kpi-sales-info">
-                                <span class="sales-count">542 بيع</span>
-                                <i class="fas fa-fire sales-icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Card 4: Average Order Value -->
-                    <div class="kpi-card trend-positive">
-                        <div class="kpi-icon trends-up">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3 class="kpi-title">متوسط قيمة الطلبية</h3>
-                            <p class="kpi-value" data-aov="197.20">197.20 ر.س</p>
-                            <div class="kpi-trend">
-                                <span class="trend-badge positive">+5.7%</span>
-                                <span class="trend-period" data-mothd="منذ أسبوع"></span>منذ أسبوع</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- CHART SECTION -->
-                <div class="charts-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-chart-line"></i> نمو المبيعات الأسبوعي</h3>
-                            <div class="chart-controls">
-                                <button class="filter-btn active" data-filter="weekly">أسبوعي</button>
-                                <button class="filter-btn" data-filter="monthly">شهري</button>
-                                <button class="filter-btn" data-filter="yearly">سنوي</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="salesGrowthChart" height="150"></canvas>
-                        </div>
-                    </div>
-                    
-                    <!-- SMART INSIGHTS PANEL -->
-                    <div class="smart-insights-card">
-                        <div class="insights-header">
-                            <h3 class="card-title"><i class="fas fa-lightbulb" class="glow-icon"></i> توصيات ذكية</h3>
-                            <button class="refresh-btn">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                        </div>
-                        <div class="insights-content">
-                            
-                            <!-- Insight 1 -->
-                            <div class="insight-card priority-high">
-                                <div class="insight-icon">
-                                    <span class="priority-dot high"></span>
-                                    <i class="fas fa-chart-area"></i>
-                                </div>
-                                <div class="insight-body">
-                                    <h4 class="insight-title">انخفاض ملحوظ في أيام الثلاثاء</h4>
-                                    <p class="insight-description">تم ملاحظة انخفاض بنسبة 18% في المبيعات بين كل اثنين. يُنصح بتنفيذ عرض خاص في منتصف الأسبوع.</p>
-                                </div>
-                                <div class="insight-actions">
-                                    <button class="insight-action btn-secondary">عرض التفاصيل</button>
-                                    <button class="insight-action btn-primary" data-action="suggest">تطبيق التوصية</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Insight 2 -->
-                            <div class="insight-card priority-medium">
-                                <div class="insight-icon">
-                                    <span class="priority-dot medium"></span>
-                                    <i class="fas fa-store"></i>
-                                </div>
-                                <div class="insight-body">
-                                    <h4 class="insight-title">العملاء المخلصين يزدادون</h4>
-                                    <p class="insight-description">عميلو الـVIP زاد بنسبة 25% خلال الشهر الماضي، مما يشير فعالية برامج الولاء.</p>
-                                </div>
-                                <div class="insight-actions">
-                                    <button class="insight-action btn-secondary">عرض التفاصيل</button>
-                                    <button class="insight-action btn-primary" data-action="suggest">تطبيق التوصية</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Insight 3 -->
-                            <div class="insight-card priority-medium">
-                                <div class="insight-icon">
-                                    <span class="priority-dot medium"></span>
-                                    <i class="fas fa-box-open"></i>
-                                </div>
-                                <div class="insight-body">
-                                    <h4 class="insight-title">مخزون المنتج "السماعات" ينخفض</h4>
-                                    <p class="insight-description">مخزون المنتج الأكثر مبيعاً قد يستغرق 10 أيام لتنفذ. يُنصح بإرسال طلب جديد للمورد.</p>
-                                </div>
-                                <div class="insight-actions">
-                                    <button class="insight-action btn-secondary">عرض التفاصيل</button>
-                                    <button class="insight-action btn-primary" data-action="suggest">تطبيق التوصية</button>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-            </section>
-            
+  <main>
+    <section class="lp-hero" aria-labelledby="hero-title">
+      <div class="lp-wrap lp-hero-grid">
+        <div>
+          <span class="lp-eyebrow"><i class="fas fa-circle-check" aria-hidden="true"></i> خدمة متاحة الآن</span>
+          <h1 id="hero-title">أنشئ جدول بياناتك، <span>وسجّل معلوماتك بسهولة.</span></h1>
+          <p class="lp-lead">
+            حوّل بياناتك إلى جداول منظمة بأسلوب يشبه Excel.
+            سمِّ الأعمدة، حدّد أنواع الحقول، وأدخل السجلات وعدّلها مباشرة داخل الجدول،
+            دون الحاجة إلى إعداد قاعدة بيانات معقدة.
+          </p>
+          <div class="lp-hero-actions">
+            <a class="lp-button primary" href="db.html">
+              <i class="fas fa-table-cells-large" aria-hidden="true"></i>
+              ابدأ إنشاء جدول
+              <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            </a>
+            <a class="lp-button secondary" href="#how-it-works">تعرف على طريقة العمل</a>
+          </div>
+          <p class="lp-note"><i class="fas fa-lock" aria-hidden="true"></i> بياناتك محفوظة محليًا داخل متصفحك، وليست على خادم مركزي.</p>
         </div>
-        
-        <!-- DATA MODAL (Upload Data Dialog) -->
-        <div class="modal-overlay" id="uploadModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title"><i class="fas fa-cloud-upload-alt"></i> رفع بيانات جديدة</h3>
-                    <button class="close-modal" data-close-modal>
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Drag and Drop Area -->
-                    <div class="drag-drop-area">
-                        <div class="upload-icon"><i class="fas fa-cloud-upload-alt fa-3x"></i></div>
-                        <p class="upload-text">سحب وإفلات ملف البيانات هنا</p>
-                        <p class="upload-subtext">أو انقر للتنقل نحو الملف</p>
-                    </div>
-                    
-                    <!-- Supported Formats -->
-                    <div class="supported-formats">
-                        <i class="fas fa-file-csv"></i><span>ملفات CSV</span>
-                        <i class="fas fa-file-excel"></i><span>Excel (.xlsx)</span>
-                        <i class="fab fa-google-drive"></i><span>Google Sheets</span>
-                    </div>
-                    
-                    <!-- Progress Bar (Hidden by default) -->
-                    <div class="upload-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="uploadProgress"></div>
-                        </div>
-                        <p class="upload-status">جارِ تحميل الملف...</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary close-modal" data-close-modal>إلغاء</button>
-                    <button class="btn btn-primary process-file"><i class="fas fa-check"></i> معالجة الملف ومعالجته</button>
-                </div>
-            </div>
+
+        <div class="lp-preview" aria-label="مثال توضيحي لشكل جدول بيانات">
+          <div class="lp-preview-header">
+            <span class="lp-preview-name"><i class="fas fa-table" aria-hidden="true"></i> جدول الطلبات</span>
+            <span class="lp-preview-meta">معاينة توضيحية</span>
+          </div>
+          <table class="lp-preview-table">
+            <thead>
+              <tr><th scope="col">ID</th><th scope="col">الاسم</th><th scope="col">الكمية</th><th scope="col">الحالة</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>طلب أحمد</td><td>3</td><td><span class="lp-status done">مكتمل</span></td></tr>
+              <tr><td>2</td><td>طلب سارة</td><td>1</td><td><span class="lp-status wait">قيد التنفيذ</span></td></tr>
+              <tr><td>3</td><td>طلب نورة</td><td>5</td><td><span class="lp-status done">مكتمل</span></td></tr>
+              <tr class="lp-preview-new"><td>4</td><td><span class="lp-cell-input">أدخل الاسم…</span></td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+          <div class="lp-preview-bottom"><i class="fas fa-circle-check" aria-hidden="true"></i> صف جديد جاهز للإدخال السريع</div>
         </div>
-    </main>
-    
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div class="toast-container" id="toastContainer"></div>
-    
-    <!-- ==================== 
-         JAVASCRIPT LOGIC 
-         ==================== -->
-    <script src="script.js"></script>
+      </div>
+    </section>
+
+    <section class="lp-section alternate" id="features" aria-labelledby="features-title">
+      <div class="lp-wrap">
+        <div class="lp-section-heading">
+          <p class="lp-section-kicker">ما الذي تقدمه الخدمة؟</p>
+          <h2 id="features-title">كل ما تحتاجه لتنظيم بياناتك في مكان واحد</h2>
+          <p>خدمة بسيطة لبناء جداولك الخاصة وتسجيل السجلات، مع أدوات للتحكم في شكل الحقول ومحتواها.</p>
+        </div>
+        <div class="lp-features">
+          <article class="lp-feature">
+            <div class="lp-feature-icon"><i class="fas fa-table-cells-large" aria-hidden="true"></i></div>
+            <h3>إنشاء جداول مخصصة</h3>
+            <p>حدّد اسم الجدول وأعمدته، وأضف أعمدة جديدة أو غيّر أنواعها لاحقًا.</p>
+          </article>
+          <article class="lp-feature">
+            <div class="lp-feature-icon"><i class="fas fa-list-check" aria-hidden="true"></i></div>
+            <h3>حقول تناسب بياناتك</h3>
+            <p>نص، رقم، تاريخ أو قائمة منسدلة بخيارات تحدّدها بنفسك.</p>
+          </article>
+          <article class="lp-feature">
+            <div class="lp-feature-icon"><i class="fas fa-keyboard" aria-hidden="true"></i></div>
+            <h3>تسجيل وتعديل سريع</h3>
+            <p>أدخل السجلات باستخدام Enter، وعدّل الخلايا مباشرة مع حفظ التغييرات.</p>
+          </article>
+          <article class="lp-feature">
+            <div class="lp-feature-icon"><i class="fas fa-file-export" aria-hidden="true"></i></div>
+            <h3>تصدير بياناتك</h3>
+            <p>نزّل جداولك بصيغة CSV القابلة للفتح في Excel، أو بصيغة JSON.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-section" id="how-it-works" aria-labelledby="steps-title">
+      <div class="lp-wrap">
+        <div class="lp-section-heading">
+          <p class="lp-section-kicker">ثلاث خطوات فقط</p>
+          <h2 id="steps-title">من جدول فارغ إلى بيانات منظمة</h2>
+          <p>ابدأ بنفسك دون إعدادات تقنية أو خطوات معقدة.</p>
+        </div>
+        <div class="lp-steps">
+          <article class="lp-step">
+            <span class="lp-step-no">١</span>
+            <h3>أنشئ الجدول</h3>
+            <p>اكتب اسم الجدول، وأضف الأعمدة وحدّد نوع كل حقل وخيارات القوائم عند الحاجة.</p>
+          </article>
+          <article class="lp-step">
+            <span class="lp-step-no">٢</span>
+            <h3>سجّل البيانات</h3>
+            <p>املأ الصفوف واحدًا بعد الآخر باستخدام لوحة المفاتيح، وعدّل أي خلية لاحقًا.</p>
+          </article>
+          <article class="lp-step">
+            <span class="lp-step-no">٣</span>
+            <h3>احفظ وصدّر</h3>
+            <p>تُحفظ البيانات في المتصفح تلقائيًا. أغلق الجدول وأعد فتحه أو صدّر ملف CSV أو JSON.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-cta">
+      <div class="lp-wrap">
+        <div class="lp-cta-panel">
+          <div>
+            <h2>جاهز تنظم بياناتك؟</h2>
+            <p>ابدأ بجدول جديد، وأضف سجلاتك بالطريقة المناسبة لك.</p>
+          </div>
+          <a class="lp-button" href="db.html">
+            افتح منشئ الجداول <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lp-footer">
+    <div class="lp-wrap lp-footer-inner">
+      <span>RetailPulse — أداة لتجربة إنشاء جداول البيانات وتسجيل السجلات.</span>
+      <span>التصدير حاليًا: CSV وJSON، وليس ملف Excel ‏.xlsx مباشرًا.</span>
+    </div>
+  </footer>
+  <script>
+    (() => {
+      const key = "retailpulse-theme";
+      const button = document.getElementById("homeThemeToggle");
+      const icon = document.getElementById("homeThemeIcon");
+      const apply = (dark) => {
+        document.body.classList.toggle("dark-mode", dark);
+        document.body.classList.toggle("light-mode", !dark);
+        icon.className = dark ? "fas fa-sun" : "fas fa-moon";
+        button.setAttribute("aria-pressed", String(dark));
+        button.setAttribute("aria-label", dark ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي");
+      };
+      try { apply(localStorage.getItem(key) === "dark"); }
+      catch (_) { apply(false); }
+      button.addEventListener("click", () => {
+        const dark = !document.body.classList.contains("dark-mode");
+        apply(dark);
+        try { localStorage.setItem(key, dark ? "dark" : "light"); }
+        catch (_) { /* Theme is still applied for this session. */ }
+      });
+    })();
+  </script>
 </body>
 </html>
