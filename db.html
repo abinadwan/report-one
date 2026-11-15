@@ -94,11 +94,11 @@
               <button type="button" class="btn btn-secondary" id="exportJsonBtn">تصدير JSON</button>
             </div>
             <div id="editorStatus" class="helper-text" role="status" aria-live="polite"></div>
-            <p class="helper-text">اضغط Enter للانتقال إلى الحقل التالي، وEnter في آخر حقل لحفظ الصف والبدء بصف جديد. اضغط على خلية محفوظة لتعديلها.</p>
+            <p class="helper-text">اضغط Enter للانتقال بين الحقول وحفظ الصف. لتعديل عمود أو حذفه اضغط رمز القلم بجانب اسمه، ولمسح قيم صف أو حذفه استخدم أزرار الإجراءات بجانبه.</p>
             <div class="column-inline-editor" id="columnEditorPanel" hidden aria-label="إضافة أو تعديل عمود">
               <div class="column-editor-head">
                 <div><h4 id="columnEditorTitle">إضافة عمود</h4>
-                  <p class="helper-text" id="columnEditorDescription">حدد اسم العمود ونوع الحقل.</p>
+                  <p class="helper-text" id="columnEditorDescription">حدد اسم العمود ونوع الحقل. يمكنك إعادة تسمية العمود الموجود أو حذفه.</p>
                 </div>
                 <button class="btn btn-secondary" id="cancelColumnPanelBtn" type="button"><i class="fas fa-times"></i> إغلاق</button>
               </div>
@@ -123,6 +123,7 @@
               </label>
               <div class="column-editor-actions">
                 <button type="button" id="saveColumnBtn" class="btn btn-success"><i class="fas fa-save"></i> حفظ العمود</button>
+                <button type="button" id="deleteColumnBtn" class="btn btn-danger" hidden><i class="fas fa-trash-alt" aria-hidden="true"></i> حذف العمود</button>
                 <span id="columnEditorStatus" class="helper-text" role="status" aria-live="polite"></span>
               </div>
             </div>
