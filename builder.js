@@ -1,7 +1,10 @@
 "use strict";
-/* RetailPulse keyboard-first grid with editable column schema. */
+/* Jadwala keyboard-first bilingual table editor. */
 document.addEventListener("DOMContentLoaded", () => {
   const db = window.RetailDB;
+  const i18n = window.JadwalaI18n;
+  const L = (value) => i18n.translate(value);
+  const ask = (message) => window.confirm(L(message));
   const $ = (id) => document.getElementById(id);
   const columns = $("columnsContainer");
   const selected = $("selectTable");
@@ -26,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function notify(message, error = false) {
     const node = document.createElement("div");
     node.className = "toast " + (error ? "error" : "success");
-    node.textContent = message;
+    node.textContent = L(message);
     $("toastContainer").append(node);
     setTimeout(() => node.remove(), 4000);
   }
-  function status(message) { $("editorStatus").textContent = message; }
+  function status(message) { $("editorStatus").textContent = L(message); }
   function hasDraft() { return Object.values(draft).some((value) => String(value ?? "").trim()); }
   function discardEditor() {
     if (editor) {
@@ -44,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentPage === targetPage) return true;
     const pendingEdit = editor && editor.input.value !== editor.original;
     if (currentPage === "manage-data" && (hasDraft() || pendingEdit || schemaDirty)) {
-      if (!window.confirm("هناك إدخال أو تعديل لم يُحفظ. هل تريد تجاهله؟")) return false;
+      if (!ask("هناك إدخال أو تعديل لم يُحفظ. هل تريد تجاهله؟")) return false;
       discardEditor();
       closeColumnPanel(true);
     }
@@ -60,17 +63,17 @@ document.addEventListener("DOMContentLoaded", () => {
       link.closest(".nav-item").classList.toggle("active", link.dataset.target === page);
     });
     currentPage = page;
-    $("pageTitle").textContent = titles[page];
+    $("pageTitle").textContent = L(titles[page]);
   }
 
   function typeSelect(type = "text", ariaLabel = "نوع الحقل") {
     const select = document.createElement("select");
     select.className = "column-type";
-    select.setAttribute("aria-label", ariaLabel);
+    select.setAttribute("aria-label", L(ariaLabel));
     types.forEach(([value, label]) => {
       const option = document.createElement("option");
       option.value = value;
-      option.textContent = label;
+      option.textContent = L(label);
       select.append(option);
     });
     select.value = type;
@@ -80,11 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const label = document.createElement("label");
     label.className = "form-group options-group";
     const description = document.createElement("span");
-    description.textContent = isNew ? "خيارات القائمة (خيار في كل سطر)" : "خيارات القائمة (خيار في كل سطر؛ احفظ لتطبيقها)";
+    description.textContent = L(isNew ? "خيارات القائمة (خيار في كل سطر)" : "خيارات القائمة (خيار في كل سطر؛ احفظ لتطبيقها)");
     const textarea = document.createElement("textarea");
     textarea.className = "column-options";
     textarea.rows = 3;
-    textarea.placeholder = "جديد\nقيد التنفيذ\nمكتمل";
+    textarea.placeholder = i18n.t("optionsPlaceholder");
     textarea.value = options.join("\n");
     textarea.setAttribute("aria-label", description.textContent);
     label.append(description, textarea);
@@ -108,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
     wrapper.className = "column-row definition-row";
     const name = document.createElement("input");
     name.className = "column-name";
-    name.placeholder = "اسم العمود";
-    name.setAttribute("aria-label", "اسم العمود");
+    name.placeholder = i18n.t("columnNameLabel");
+    name.setAttribute("aria-label", i18n.t("columnNameLabel"));
     name.maxLength = 100;
     name.value = initialName;
     name.addEventListener("keydown", (event) => {
@@ -125,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const remove = document.createElement("button");
     remove.className = "btn btn-danger";
     remove.type = "button";
-    remove.textContent = "حذف";
+    remove.textContent = i18n.t("remove");
     remove.addEventListener("click", () => {
       wrapper.remove();
       if (!columns.children.length) addColumn();
@@ -142,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selected.replaceChildren();
     if (!names.length) {
       const option = document.createElement("option");
-      option.textContent = "لا توجد جداول";
+      option.textContent = i18n.t("noTables");
       option.value = "";
       selected.append(option);
     } else {
@@ -161,10 +164,10 @@ document.addEventListener("DOMContentLoaded", () => {
     columns.querySelectorAll("input,select,textarea,button").forEach((node) => {
       node.disabled = !!active || db.readOnly;
     });
-    $("activeNotice").textContent = db.readOnly
+    $("activeNotice").textContent = L(db.readOnly
       ? "تعذر قراءة بعض البيانات المحفوظة؛ التحرير متوقف لحمايتها."
       : active ? "الجدول «" + active + "» مفتوح. أغلقه قبل إنشاء جدول آخر." :
-        "يمكن إنشاء جدول جديد أو فتح جدول محفوظ.";
+        "يمكن إنشاء جدول جديد أو فتح جدول محفوظ.");
     selected.disabled = !!active;
     $("openTableBtn").disabled = !!active || !names.length || db.readOnly;
     $("closeTableBtn").disabled = !active;
@@ -180,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
       input = document.createElement("select");
       const empty = document.createElement("option");
       empty.value = "";
-      empty.textContent = "اختر...";
+      empty.textContent = i18n.t("choose");
       input.append(empty);
       (def.options || []).forEach((value) => {
         const option = document.createElement("option");
@@ -221,13 +224,13 @@ document.addEventListener("DOMContentLoaded", () => {
         plus.type = "button";
         plus.className = "column-add-button";
         plus.innerHTML = '<i class="fas fa-plus" aria-hidden="true"></i>';
-        plus.setAttribute("aria-label", "إضافة عمود جديد");
-        plus.title = "إضافة عمود جديد";
+        plus.setAttribute("aria-label", L("إضافة عمود جديد"));
+        plus.title = L("إضافة عمود جديد");
         plus.addEventListener("click", () => openColumnPanel());
         const heading = document.createElement("div");
         heading.className = "column-heading";
         const label = document.createElement("span");
-        label.textContent = "إجراءات";
+        label.textContent = i18n.t("action");
         heading.append(label, plus);
         th.append(heading);
       } else if (active && column !== "id") {
@@ -238,8 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
         modify.type = "button";
         modify.className = "column-edit-button";
         modify.innerHTML = '<i class="fas fa-pen" aria-hidden="true"></i>';
-        modify.setAttribute("aria-label", "تعديل اسم أو نوع العمود أو حذف العمود " + column);
-        modify.title = "تعديل أو حذف العمود " + column;
+        modify.setAttribute("aria-label", L("تعديل اسم أو نوع العمود أو حذف العمود " + column));
+        modify.title = L("تعديل أو حذف العمود " + column);
         modify.addEventListener("click", () => openColumnPanel(column));
         const group = document.createElement("div");
         group.className = "column-heading";
@@ -258,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!active || editor) return;
       const original = String(row[def.name] ?? "");
       const input = makeInput(def, original);
-      input.setAttribute("aria-label", "تعديل " + def.name + " للسجل " + row.id);
+      input.setAttribute("aria-label", L("تعديل " + def.name + " للسجل " + row.id));
       cell.replaceChildren(input);
       const editing = { input, original };
       editor = editing;
@@ -311,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (active) {
           td.className = "editable-cell";
           td.tabIndex = 0;
-          td.title = "اضغط لتعديل الخلية";
+          td.title = L("اضغط لتعديل الخلية");
           td.addEventListener("click", () => editCell(td, row, def));
           td.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === "F2") {
@@ -330,11 +333,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const clear = document.createElement("button");
         clear.type = "button";
         clear.className = "row-action-button row-clear";
-        clear.textContent = "مسح القيم";
-        clear.title = "مسح قيم الصف رقم " + row.id + " مع إبقاء الرقم التسلسلي";
+        clear.textContent = i18n.t("clearValues");
+        clear.title = L("مسح قيم الصف رقم " + row.id + " مع إبقاء الرقم التسلسلي");
         clear.setAttribute("aria-label", clear.title);
         clear.addEventListener("click", () => {
-          if (!window.confirm("مسح جميع قيم الصف رقم " + row.id + "؟ سيبقى رقم ID والسجل موجودين.")) return;
+          if (!ask("مسح جميع قيم الصف رقم " + row.id + "؟ سيبقى رقم ID والسجل موجودين.")) return;
           try {
             const changed = db.clearRow(name, row.id);
             renderGrid();
@@ -344,11 +347,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const remove = document.createElement("button");
         remove.type = "button";
         remove.className = "row-action-button row-delete";
-        remove.textContent = "حذف الصف";
-        remove.title = "حذف الصف رقم " + row.id + " بالكامل";
+        remove.textContent = i18n.t("deleteRow");
+        remove.title = L("حذف الصف رقم " + row.id + " بالكامل");
         remove.setAttribute("aria-label", remove.title);
         remove.addEventListener("click", () => {
-          if (!window.confirm("حذف الصف رقم " + row.id + " بالكامل؟ لن تتغير معرفات الصفوف الأخرى.")) return;
+          if (!ask("حذف الصف رقم " + row.id + " بالكامل؟ لن تتغير معرفات الصفوف الأخرى.")) return;
           try {
             db.deleteRow(name, row.id);
             renderGrid();
@@ -373,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cell = document.createElement("td");
         const input = makeInput(def, draft[def.name] ?? "");
         input.classList.add("new-row-input");
-        input.setAttribute("aria-label", "إدخال " + def.name);
+        input.setAttribute("aria-label", L("إدخال " + def.name));
         input.addEventListener("input", () => { draft[def.name] = input.value; });
         input.addEventListener("change", () => { draft[def.name] = input.value; });
         cell.append(input);
@@ -422,7 +425,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const save = document.createElement("button");
       save.className = "btn btn-success";
       save.type = "button";
-      save.textContent = "حفظ الصف";
+      save.textContent = i18n.t("saveRow");
       save.addEventListener("click", saveNewRow);
       controls.append(save);
       newRow.append(controls);
@@ -439,7 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeColumnPanel(force = false) {
     if (!force && schemaDirty &&
-        !window.confirm("هناك تعديلات غير محفوظة على تعريف العمود. هل تريد إلغاءها؟")) return false;
+        !ask("هناك تعديلات غير محفوظة على تعريف العمود. هل تريد إلغاءها؟")) return false;
     columnPanel.hidden = true;
     editingColumn = null;
     schemaDirty = false;
@@ -459,10 +462,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const def = columnName ? db.getColumnDefs(tableName).find((item) => item.name === columnName) : null;
     if (columnName && !def) return notify("العمود غير موجود", true);
     editingColumn = def?.name || null;
-    $("columnEditorTitle").textContent = def ? "تعديل العمود: " + def.name : "إضافة عمود جديد";
-    $("columnEditorDescription").textContent = def
+    $("columnEditorTitle").textContent = L(def ? "تعديل العمود: " + def.name : "إضافة عمود جديد");
+    $("columnEditorDescription").textContent = L(def
       ? "عدّل اسم العمود أو نوعه أو خياراته، أو احذفه. لن تُستبدل بيانات غير متوافقة دون تنبيه."
-      : "حدّد اسم العمود ونوعه؛ يظهر بعد الحفظ مباشرة في جدول البيانات.";
+      : "حدّد اسم العمود ونوعه؛ يظهر بعد الحفظ مباشرة في جدول البيانات.");
     columnNameInput.value = def?.name || "";
     columnNameInput.readOnly = false;
     $("deleteColumnBtn").hidden = !def;
@@ -470,7 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
     newType.value = def?.type || "text";
     newOpts.value = def?.options?.join("\n") || "";
     showOptions(newType, newOptsGroup);
-    $("saveColumnBtn").textContent = def ? "حفظ تعديل العمود" : "إضافة العمود للجدول";
+    $("saveColumnBtn").textContent = L(def ? "حفظ تعديل العمود" : "إضافة العمود للجدول");
     $("columnEditorStatus").textContent = "";
     schemaDirty = false;
     columnPanel.hidden = false;
@@ -480,7 +483,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function confirmDiscardGridDraft() {
     if (!hasDraft() && !(editor && editor.input.value !== editor.original)) return true;
-    if (!window.confirm("هناك بيانات قيد الإدخال أو تعديل خلية لم يُحفظ. هل تريد تجاهلها ومتابعة العملية؟")) return false;
+    if (!ask("هناك بيانات قيد الإدخال أو تعديل خلية لم يُحفظ. هل تريد تجاهلها ومتابعة العملية؟")) return false;
     discardEditor();
     return true;
   }
@@ -502,7 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const warning = preview.converted
             ? "سيتم تحويل " + preview.converted + " قيمة مع تحديث اسم أو نوع العمود. هل تعتمد التعديل؟"
             : "سيتم تغيير تعريف العمود مع الاحتفاظ ببيانات الصفوف. هل تعتمد التعديل؟";
-          if (!window.confirm(warning)) return;
+          if (!ask(warning)) return;
         }
         if (!confirmDiscardGridDraft()) return;
         db.updateColumn(tableName, editingColumn, def);
@@ -517,7 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
       refresh(tableName);
       notify(action);
     } catch (error) {
-      $("columnEditorStatus").textContent = error.message || "تعذر حفظ العمود";
+      $("columnEditorStatus").textContent = L(error.message || "تعذر حفظ العمود");
       notify(error.message || "تعذر حفظ العمود", true);
     }
   }
@@ -535,7 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "ستُحذف قيمه من جميع السجلات" +
       (rowsWithValues ? " (" + rowsWithValues + " صفوف تحتوي بيانات)" : "") +
       "، ولن تتأثر الأعمدة الأخرى أو أرقام ID.\nيمكنك تصدير JSON قبل الحذف للاحتفاظ بنسخة خارجية.";
-    if (!window.confirm(warning)) return;
+    if (!ask(warning)) return;
     if (!confirmDiscardGridDraft()) return;
     try {
       db.deleteColumn(tableName, column);
@@ -645,6 +648,48 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   $("exportCsvBtn").addEventListener("click", () => exportTable("csv"));
   $("exportJsonBtn").addEventListener("click", () => exportTable("json"));
+
+  function applyTheme(dark) {
+    document.body.classList.toggle("dark-mode", dark);
+    document.body.classList.toggle("light-mode", !dark);
+    const themeToggle = $("dbThemeToggle");
+    themeToggle.textContent = i18n.t(dark ? "lightMode" : "darkMode");
+    themeToggle.setAttribute("aria-pressed", String(dark));
+  }
+  try { applyTheme(localStorage.getItem("retailpulse-theme") === "dark"); }
+  catch (_) { applyTheme(false); }
+  $("dbThemeToggle").addEventListener("click", () => {
+    const dark = !document.body.classList.contains("dark-mode");
+    applyTheme(dark);
+    try { localStorage.setItem("retailpulse-theme", dark ? "dark" : "light"); }
+    catch (_) { notify(i18n.getLang() === "en" ? "Unable to save theme preference" : "تعذر حفظ تفضيل المظهر", true); }
+  });
+
+  $("dbLangToggle").addEventListener("click", () => {
+    const pending = hasDraft() || schemaDirty ||
+      !!(editor && editor.input.value !== editor.original);
+    if (pending && !ask("هناك إدخال أو تعديل لم يُحفظ. هل تريد تجاهله؟")) return;
+    if (pending) discardEditor();
+    if (!columnPanel.hidden) closeColumnPanel(true);
+    i18n.setLang(i18n.getLang() === "ar" ? "en" : "ar");
+    // Builder controls are generated dynamically, so update their labels too.
+    columns.querySelectorAll(".definition-row").forEach((row) => {
+      const name = row.querySelector(".column-name");
+      name.placeholder = i18n.t("columnNameLabel");
+      name.setAttribute("aria-label", i18n.t("columnNameLabel"));
+      row.querySelectorAll(".column-type option").forEach((option) => {
+        option.textContent = i18n.t({ text: "typeText", number: "typeNumber", date: "typeDate", select: "typeSelect" }[option.value]);
+      });
+      row.querySelector(".column-type").setAttribute("aria-label", i18n.t("fieldType"));
+      row.querySelector(".column-options").placeholder = i18n.t("optionsPlaceholder");
+      row.querySelector(".options-group span").textContent = i18n.t("optionsEditor");
+      row.querySelector(".options-group textarea").setAttribute("aria-label", i18n.t("optionsEditor"));
+      row.querySelector(".btn-danger").textContent = i18n.t("remove");
+    });
+    applyTheme(document.body.classList.contains("dark-mode"));
+    refresh();
+    show(currentPage);
+  });
 
   window.addEventListener("beforeunload", (event) => {
     if (!hasDraft() && !schemaDirty &&
