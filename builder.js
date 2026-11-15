@@ -343,7 +343,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         if (input.tagName === "SELECT") {
           input.addEventListener("change", () => {
-            if (index < inputs.length - 1) inputs[index + 1].focus();
+            if (index < inputs.length - 1) {
+              inputs[index + 1].focus();
+            } else if (inputs.every((field) => field.value.trim())) {
+              // A last-column dropdown choice completes the entire row.
+              saveNewRow();
+            }
+          });
+          input.addEventListener("keyup", (event) => {
+            if (event.key === "Enter" && !event.isComposing && document.activeElement === input && input.value) {
+              if (index < inputs.length - 1) inputs[index + 1].focus();
+              else saveNewRow();
+            }
           });
         }
       });
@@ -401,6 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     if (!mayLeave(page)) return;
+    if (currentPage === "manage-data" && page !== "manage-data") discardEditor();
     show(page);
     if (page === "manage-data") refresh();
   }
