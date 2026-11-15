@@ -219,6 +219,29 @@ body {
   font: inherit;
 }
 .column-editor-fields input[readonly] { opacity: .72; cursor: not-allowed; }
+#deleteColumnBtn[hidden] { display: none !important; }
+.column-editor-actions #deleteColumnBtn { margin-inline-start: auto; }
+.row-actions-cell { vertical-align: middle; }
+.row-actions { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.row-action-button {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--border-light);
+  background: var(--card-bg-light);
+  color: var(--text-primary-light);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.row-clear:hover, .row-clear:focus-visible { border-color: #d97706; color: #b45309; }
+.row-delete { border-color: rgba(185,28,28,.22); color: #b91c1c; }
+.row-delete:hover, .row-delete:focus-visible { background: rgba(185,28,28,.07); border-color: #b91c1c; }
+@media (max-width: 800px) {
+  .row-actions { gap: 4px; }
+  .row-action-button { padding: 6px 7px; font-size: 11px; }
+}
 .column-editor-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 10px; }
 .column-editor-actions .helper-text { margin: 0; }
 @media (max-width: 800px) {
