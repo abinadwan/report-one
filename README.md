@@ -1,12 +1,42 @@
-# جدولة | Jadwala
+<p align="center">
+  <img src="assets/jadwala-logo.svg" width="168" height="168" alt="Jadwala logo — spreadsheet with a checkmark">
+</p>
 
-**جداولك، بياناتك، بطريقتك.** / **Your tables. Your data. Your way.**
+<h1 align="center">جدولة | Jadwala</h1>
+
+<p align="center"><strong>جداولك، بياناتك، بطريقتك.</strong><br><strong>Your tables. Your data. Your way.</strong></p>
+
+<p align="center">
+  <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&amp;logo=html5&amp;logoColor=white">
+  <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&amp;logo=css3&amp;logoColor=white">
+  <img alt="Vanilla JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&amp;logo=javascript&amp;logoColor=black">
+  <img alt="Web Storage API" src="https://img.shields.io/badge/localStorage-334155?style=for-the-badge">
+  <img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub_Pages-222222?style=for-the-badge&amp;logo=github&amp;logoColor=white">
+  <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge">
+</p>
+
+<p align="center">
+  <a href="https://github.com/abinadwan/report-one/actions/workflows/static.yml"><img alt="GitHub Pages deployment status" src="https://github.com/abinadwan/report-one/actions/workflows/static.yml/badge.svg"></a>
+</p>
 
 A lightweight open-source bilingual (العربية / English) table builder and data-entry app. Create Excel-style tables directly in your browser without a backend.
 
 **Live:** https://abinadwan.github.io/report-one/ · **Editor:** https://abinadwan.github.io/report-one/db.html · **License:** [MIT](LICENSE)
 
 > **Important:** Jadwala is a browser-based table editor, **not** a server database or a native Excel (`.xlsx`) editor. Export is available as CSV (opens in Excel) or JSON. The sample table on the home page is illustrative.
+
+## التقنيات المستخدمة | Tech Stack
+
+| Technology | Purpose |
+| --- | --- |
+| **HTML5** | Semantic UI structure / هيكل الصفحات |
+| **CSS3** | Responsive layout, light/dark themes, RTL/LTR / التصميم المتجاوب |
+| **Vanilla JavaScript (ES6+)** | Spreadsheet interactions, editing, validation, exporting and i18n / منطق الجداول |
+| **Web Storage API (`localStorage`)** | Browser-only records and preferences / حفظ البيانات محليًا |
+| **GitHub Pages + GitHub Actions** | Static hosting and automatic deployment / الاستضافة والنشر |
+| **Font Awesome + Google Fonts (Tajawal)** | Icons and typography / الأيقونات والخطوط |
+
+> **No framework, Node.js server, cloud database, or native `.xlsx` export.** The table editor uses the browser's own APIs.
 
 ## العربية
 
@@ -86,6 +116,7 @@ Open `index.html` in a modern browser or host the folder as a static site. No bu
 | `style.css` | Shared styles and design tokens |
 | `script.js` | Legacy simulated dashboard code, not loaded by the current pages |
 | `.github/workflows/static.yml` | Static GitHub Pages deployment from `main` |
+| `assets/jadwala-logo.svg` | Project logo used in this README |
 | `LICENSE` | MIT open-source license |
 
 ## Licensing and contribution
