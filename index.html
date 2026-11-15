@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="أنشئ جداول بيانات شبيهة بإكسل، حدد الأعمدة وأنواع الحقول، وسجّل البيانات وعدّلها بسهولة في متصفحك.">
+  <meta name="description" data-i18n="homeDescription" content="أنشئ جداول بيانات شبيهة بإكسل، حدد الأعمدة وأنواع الحقول، وسجّل البيانات وعدّلها بسهولة في متصفحك.">
   <meta name="theme-color" content="#4f46e5">
-  <title>جدولة | إنشاء جداول البيانات وتسجيل السجلات</title>
+  <title data-i18n="homeTitle">جدولة | إنشاء جداول البيانات وتسجيل السجلات</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,20 +16,21 @@
 <body class="landing-page light-mode">
   <header class="lp-header">
     <div class="lp-wrap lp-header-inner">
-      <a class="lp-brand" href="index.html" aria-label="جدولة - الصفحة الرئيسية">
+      <a class="lp-brand" href="index.html" data-i18n-aria="homeAria" aria-label="جدولة - الصفحة الرئيسية">
         <span class="lp-logo"><i class="fas fa-table-cells" aria-hidden="true"></i></span>
         <span>
-          <strong class="lp-brand-name">جدولة</strong>
-          <small class="lp-brand-sub">Jadwala — إنشاء وتنظيم جداول البيانات</small>
+          <strong class="lp-brand-name" data-i18n="appName">جدولة</strong>
+          <small class="lp-brand-sub" data-i18n="tagline">Jadwala — إنشاء وتنظيم جداول البيانات</small>
         </span>
       </a>
-      <nav class="lp-header-actions" aria-label="التنقل الرئيسي">
-        <a class="lp-link" href="#features">مميزات الخدمة</a>
-        <a class="lp-link" href="#how-it-works">كيف تبدأ؟</a>
-        <button id="homeThemeToggle" class="lp-theme" type="button" title="تبديل المظهر" aria-label="تفعيل الوضع الليلي" aria-pressed="false">
+      <nav class="lp-header-actions" data-i18n-aria="mainNavigation" aria-label="التنقل الرئيسي">
+        <a class="lp-link" href="#features" data-i18n="featuresNav">مميزات الخدمة</a>
+        <a class="lp-link" href="#how-it-works" data-i18n="howNav">كيف تبدأ؟</a>
+        <button id="homeThemeToggle" data-i18n-aria="themeDarkAria" class="lp-theme" type="button" title="تبديل المظهر" aria-label="تفعيل الوضع الليلي" aria-pressed="false">
           <i id="homeThemeIcon" class="fas fa-moon" aria-hidden="true"></i>
         </button>
-        <a class="lp-button primary" href="db.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> ابدأ الآن</a>
+        <button id="homeLangToggle" class="lp-lang" type="button" title="Switch language" data-i18n="langToggle" aria-label="Switch language">English</button>
+        <a class="lp-button primary" href="db.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> <span data-i18n="startNow">ابدأ الآن</span></a>
       </nav>
     </div>
   </header>
@@ -38,41 +39,37 @@
     <section class="lp-hero" aria-labelledby="hero-title">
       <div class="lp-wrap lp-hero-grid">
         <div>
-          <span class="lp-eyebrow"><i class="fas fa-circle-check" aria-hidden="true"></i> خدمة متاحة الآن</span>
-          <h1 id="hero-title">أنشئ جدول بياناتك، <span>وسجّل معلوماتك بسهولة.</span></h1>
-          <p class="lp-lead">
-            حوّل بياناتك إلى جداول منظمة بأسلوب يشبه Excel.
-            سمِّ الأعمدة، حدّد أنواع الحقول، وأدخل السجلات وعدّلها مباشرة داخل الجدول،
-            دون الحاجة إلى إعداد قاعدة بيانات معقدة.
-          </p>
+          <span class="lp-eyebrow"><i class="fas fa-circle-check" aria-hidden="true"></i> <span data-i18n="available">خدمة متاحة الآن</span></span>
+          <h1 id="hero-title"><span class="hero-plain" data-i18n="heroLead">أنشئ جدول بياناتك،</span> <span class="hero-highlight" data-i18n="heroAccent">وسجّل معلوماتك بسهولة.</span></h1>
+          <p class="lp-lead" data-i18n="heroText">حوّل بياناتك إلى جداول منظمة بأسلوب يشبه Excel. سمِّ الأعمدة، حدّد أنواع الحقول، وأدخل السجلات وعدّلها مباشرة داخل الجدول، دون الحاجة إلى إعداد قاعدة بيانات معقدة.</p>
           <div class="lp-hero-actions">
             <a class="lp-button primary" href="db.html">
               <i class="fas fa-table-cells-large" aria-hidden="true"></i>
-              ابدأ إنشاء جدول
+              <span data-i18n="createCTA">ابدأ إنشاء جدول</span>
               <i class="fas fa-arrow-left" aria-hidden="true"></i>
             </a>
-            <a class="lp-button secondary" href="#how-it-works">تعرف على طريقة العمل</a>
+            <a class="lp-button secondary" href="#how-it-works" data-i18n="learnMore">تعرف على طريقة العمل</a>
           </div>
-          <p class="lp-note"><i class="fas fa-lock" aria-hidden="true"></i> بياناتك محفوظة محليًا داخل متصفحك، وليست على خادم مركزي.</p>
+          <p class="lp-note"><i class="fas fa-lock" aria-hidden="true"></i> <span data-i18n="localNote">بياناتك محفوظة محليًا داخل متصفحك، وليست على خادم مركزي.</span></p>
         </div>
 
-        <div class="lp-preview" aria-label="مثال توضيحي لشكل جدول بيانات">
+        <div class="lp-preview" data-i18n-aria="previewAria" aria-label="مثال توضيحي لشكل جدول بيانات">
           <div class="lp-preview-header">
-            <span class="lp-preview-name"><i class="fas fa-table" aria-hidden="true"></i> جدول الطلبات</span>
-            <span class="lp-preview-meta">معاينة توضيحية</span>
+            <span class="lp-preview-name"><i class="fas fa-table" aria-hidden="true"></i> <span data-i18n="previewName">جدول الطلبات</span></span>
+            <span class="lp-preview-meta" data-i18n="demoLabel">معاينة توضيحية</span>
           </div>
           <table class="lp-preview-table">
             <thead>
-              <tr><th scope="col">ID</th><th scope="col">الاسم</th><th scope="col">الكمية</th><th scope="col">الحالة</th></tr>
+              <tr><th scope="col">ID</th><th scope="col" data-i18n="colName">الاسم</th><th scope="col" data-i18n="colQuantity">الكمية</th><th scope="col" data-i18n="colStatus">الحالة</th></tr>
             </thead>
             <tbody>
-              <tr><td>1</td><td>طلب أحمد</td><td>3</td><td><span class="lp-status done">مكتمل</span></td></tr>
-              <tr><td>2</td><td>طلب سارة</td><td>1</td><td><span class="lp-status wait">قيد التنفيذ</span></td></tr>
-              <tr><td>3</td><td>طلب نورة</td><td>5</td><td><span class="lp-status done">مكتمل</span></td></tr>
-              <tr class="lp-preview-new"><td>4</td><td><span class="lp-cell-input">أدخل الاسم…</span></td><td>—</td><td>—</td></tr>
+              <tr><td>1</td><td><span data-i18n="exampleOne">طلب أحمد</span></td><td>3</td><td><span class="lp-status done" data-i18n="completed">مكتمل</span></td></tr>
+              <tr><td>2</td><td><span data-i18n="exampleTwo">طلب سارة</span></td><td>1</td><td><span class="lp-status wait" data-i18n="inProgress">قيد التنفيذ</span></td></tr>
+              <tr><td>3</td><td><span data-i18n="exampleThree">طلب نورة</span></td><td>5</td><td><span class="lp-status done" data-i18n="completed">مكتمل</span></td></tr>
+              <tr class="lp-preview-new"><td>4</td><td><span class="lp-cell-input" data-i18n="enterName">أدخل الاسم…</span></td><td>—</td><td>—</td></tr>
             </tbody>
           </table>
-          <div class="lp-preview-bottom"><i class="fas fa-circle-check" aria-hidden="true"></i> صف جديد جاهز للإدخال السريع</div>
+          <div class="lp-preview-bottom"><i class="fas fa-circle-check" aria-hidden="true"></i> <span data-i18n="readyNewRow">صف جديد جاهز للإدخال السريع</span></div>
         </div>
       </div>
     </section>
@@ -80,30 +77,30 @@
     <section class="lp-section alternate" id="features" aria-labelledby="features-title">
       <div class="lp-wrap">
         <div class="lp-section-heading">
-          <p class="lp-section-kicker">ما الذي تقدمه الخدمة؟</p>
-          <h2 id="features-title">كل ما تحتاجه لتنظيم بياناتك في مكان واحد</h2>
-          <p>خدمة بسيطة لبناء جداولك الخاصة وتسجيل السجلات، مع أدوات للتحكم في شكل الحقول ومحتواها.</p>
+          <p class="lp-section-kicker" data-i18n="featuresKicker">ما الذي تقدمه الخدمة؟</p>
+          <h2 id="features-title" data-i18n="featuresTitle">كل ما تحتاجه لتنظيم بياناتك في مكان واحد</h2>
+          <p data-i18n="featuresIntro">خدمة بسيطة لبناء جداولك الخاصة وتسجيل السجلات، مع أدوات للتحكم في شكل الحقول ومحتواها.</p>
         </div>
         <div class="lp-features">
           <article class="lp-feature">
             <div class="lp-feature-icon"><i class="fas fa-table-cells-large" aria-hidden="true"></i></div>
-            <h3>إنشاء جداول مخصصة</h3>
-            <p>حدّد اسم الجدول وأعمدته، وأضف أعمدة جديدة أو غيّر أنواعها لاحقًا.</p>
+            <h3 data-i18n="featureOne">إنشاء جداول مخصصة</h3>
+            <p data-i18n="featureOneDesc">حدّد اسم الجدول وأعمدته، وأضف أعمدة جديدة أو غيّر أنواعها لاحقًا.</p>
           </article>
           <article class="lp-feature">
             <div class="lp-feature-icon"><i class="fas fa-list-check" aria-hidden="true"></i></div>
-            <h3>حقول تناسب بياناتك</h3>
-            <p>نص، رقم، تاريخ أو قائمة منسدلة بخيارات تحدّدها بنفسك.</p>
+            <h3 data-i18n="featureTwo">حقول تناسب بياناتك</h3>
+            <p data-i18n="featureTwoDesc">نص، رقم، تاريخ أو قائمة منسدلة بخيارات تحدّدها بنفسك.</p>
           </article>
           <article class="lp-feature">
             <div class="lp-feature-icon"><i class="fas fa-keyboard" aria-hidden="true"></i></div>
-            <h3>تسجيل وتعديل سريع</h3>
-            <p>أدخل السجلات باستخدام Enter، وعدّل الخلايا مباشرة مع حفظ التغييرات.</p>
+            <h3 data-i18n="featureThree">تسجيل وتعديل سريع</h3>
+            <p data-i18n="featureThreeDesc">أدخل السجلات باستخدام Enter، وعدّل الخلايا مباشرة مع حفظ التغييرات.</p>
           </article>
           <article class="lp-feature">
             <div class="lp-feature-icon"><i class="fas fa-file-export" aria-hidden="true"></i></div>
-            <h3>تصدير بياناتك</h3>
-            <p>نزّل جداولك بصيغة CSV القابلة للفتح في Excel، أو بصيغة JSON.</p>
+            <h3 data-i18n="featureFour">تصدير بياناتك</h3>
+            <p data-i18n="featureFourDesc">نزّل جداولك بصيغة CSV القابلة للفتح في Excel، أو بصيغة JSON.</p>
           </article>
         </div>
       </div>
@@ -112,25 +109,25 @@
     <section class="lp-section" id="how-it-works" aria-labelledby="steps-title">
       <div class="lp-wrap">
         <div class="lp-section-heading">
-          <p class="lp-section-kicker">ثلاث خطوات فقط</p>
-          <h2 id="steps-title">من جدول فارغ إلى بيانات منظمة</h2>
-          <p>ابدأ بنفسك دون إعدادات تقنية أو خطوات معقدة.</p>
+          <p class="lp-section-kicker" data-i18n="stepsKicker">ثلاث خطوات فقط</p>
+          <h2 id="steps-title" data-i18n="stepsTitle">من جدول فارغ إلى بيانات منظمة</h2>
+          <p data-i18n="stepsIntro">ابدأ بنفسك دون إعدادات تقنية أو خطوات معقدة.</p>
         </div>
         <div class="lp-steps">
           <article class="lp-step">
             <span class="lp-step-no">١</span>
-            <h3>أنشئ الجدول</h3>
-            <p>اكتب اسم الجدول، وأضف الأعمدة وحدّد نوع كل حقل وخيارات القوائم عند الحاجة.</p>
+            <h3 data-i18n="stepOne">أنشئ الجدول</h3>
+            <p data-i18n="stepOneDesc">اكتب اسم الجدول، وأضف الأعمدة وحدّد نوع كل حقل وخيارات القوائم عند الحاجة.</p>
           </article>
           <article class="lp-step">
             <span class="lp-step-no">٢</span>
-            <h3>سجّل البيانات</h3>
-            <p>املأ الصفوف واحدًا بعد الآخر باستخدام لوحة المفاتيح، وعدّل أي خلية لاحقًا.</p>
+            <h3 data-i18n="stepTwo">سجّل البيانات</h3>
+            <p data-i18n="stepTwoDesc">املأ الصفوف واحدًا بعد الآخر باستخدام لوحة المفاتيح، وعدّل أي خلية لاحقًا.</p>
           </article>
           <article class="lp-step">
             <span class="lp-step-no">٣</span>
-            <h3>احفظ وصدّر</h3>
-            <p>تُحفظ البيانات في المتصفح تلقائيًا. أغلق الجدول وأعد فتحه أو صدّر ملف CSV أو JSON.</p>
+            <h3 data-i18n="stepThree">احفظ وصدّر</h3>
+            <p data-i18n="stepThreeDesc">تُحفظ البيانات في المتصفح تلقائيًا. أغلق الجدول وأعد فتحه أو صدّر ملف CSV أو JSON.</p>
           </article>
         </div>
       </div>
@@ -140,11 +137,11 @@
       <div class="lp-wrap">
         <div class="lp-cta-panel">
           <div>
-            <h2>جاهز تنظم بياناتك؟</h2>
-            <p>ابدأ بجدول جديد، وأضف سجلاتك بالطريقة المناسبة لك.</p>
+            <h2 data-i18n="ctaTitle">جاهز تنظم بياناتك؟</h2>
+            <p data-i18n="ctaDesc">ابدأ بجدول جديد، وأضف سجلاتك بالطريقة المناسبة لك.</p>
           </div>
           <a class="lp-button" href="db.html">
-            افتح منشئ الجداول <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            <span data-i18n="openBuilder">افتح منشئ الجداول</span> <i class="fas fa-arrow-left" aria-hidden="true"></i>
           </a>
         </div>
       </div>
@@ -153,13 +150,18 @@
 
   <footer class="lp-footer">
     <div class="lp-wrap lp-footer-inner">
-      <span>جدولة — أداة لتجربة إنشاء جداول البيانات وتسجيل السجلات.</span>
-      <span>التصدير حاليًا: CSV وJSON، وليس ملف Excel ‏.xlsx مباشرًا.</span>
+      <span data-i18n="footerOne">جدولة — أداة لتجربة إنشاء جداول البيانات وتسجيل السجلات.</span>
+      <span data-i18n="footerTwo">التصدير حاليًا: CSV وJSON، وليس ملف Excel ‏.xlsx مباشرًا.</span>
     </div>
   </footer>
+  <script src="i18n.js"></script>
   <script>
     (() => {
       const key = "retailpulse-theme";
+      const i18n = window.JadwalaI18n;
+      document.getElementById("homeLangToggle").addEventListener("click", () => {
+        i18n.setLang(i18n.getLang() === "ar" ? "en" : "ar");
+      });
       const button = document.getElementById("homeThemeToggle");
       const icon = document.getElementById("homeThemeIcon");
       const apply = (dark) => {
@@ -167,10 +169,13 @@
         document.body.classList.toggle("light-mode", !dark);
         icon.className = dark ? "fas fa-sun" : "fas fa-moon";
         button.setAttribute("aria-pressed", String(dark));
-        button.setAttribute("aria-label", dark ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي");
+        button.setAttribute("aria-label", i18n.t(dark ? "themeLightAria" : "themeDarkAria"));
       };
       try { apply(localStorage.getItem(key) === "dark"); }
       catch (_) { apply(false); }
+      window.addEventListener("jadwala:languagechange", () => {
+        apply(document.body.classList.contains("dark-mode"));
+      });
       button.addEventListener("click", () => {
         const dark = !document.body.classList.contains("dark-mode");
         apply(dark);
