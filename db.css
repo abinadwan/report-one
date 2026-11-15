@@ -79,3 +79,44 @@ body {
   .table-responsive { max-width:100%; overflow-x:auto; }
   .editor-table { min-width:540px; }
 }
+
+/* Editable column definitions and dropdown choices */
+.options-group[hidden], #existingColumnOptionsGroup[hidden] { display: none !important; }
+.definition-row { align-items: flex-start; border-bottom: 1px solid var(--border-light); padding: 12px 0; }
+.definition-row .column-name { flex: 1 1 190px; }
+.definition-row .column-type { flex: 0 1 185px; }
+.options-group { flex: 1 1 100%; width: 100%; }
+.column-options, #existingColumnOptions {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 82px;
+  resize: vertical;
+  padding: 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+  color: var(--text-primary-light);
+  background: var(--card-bg-light);
+  font: inherit;
+}
+.schema-columns { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.schema-definition {
+  display: grid;
+  grid-template-columns: minmax(130px,1fr) minmax(140px,190px);
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-body-light);
+}
+.schema-definition .options-group { grid-column: 1 / -1; }
+.schema-name { font-weight: 700; overflow-wrap: anywhere; }
+.schema-new-row { gap: 16px; }
+.schema-new-row .form-group { flex: 1 1 180px; }
+.schema-new-row input, .schema-new-row select { width: 100%; }
+#manage-columns hr, #create-table hr { border: 0; border-top: 1px solid var(--border-light); margin: 18px 0; }
+@media(max-width: 600px) {
+  .schema-definition { grid-template-columns: 1fr; }
+  .schema-definition .options-group { grid-column: 1; }
+  .definition-row .column-type { flex: 1 1 130px; }
+}
