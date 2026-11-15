@@ -257,3 +257,57 @@ body {
   #manage-data .table-toolbar .form-group { flex-basis: 100%; }
   #manage-data .editor-table th, #manage-data .editor-table td { min-width: 138px; }
 }
+
+/* Bilingual UI polish: same layout, correct reading direction in English */
+.db-header-actions { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+#dbLangToggle { min-width: 83px; }
+#dbLangToggle:hover { border-color: #818cf8; }
+#manage-data .editor-table th, #manage-data .editor-table td { text-align: start; }
+#manage-data .data-editor-card {
+  background: var(--card-bg-light);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 12px 42px rgba(15,23,42,.055);
+  border-radius: 17px;
+}
+#manage-data .data-editor-card .card-header {
+  padding-block-end: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+#manage-data .table-toolbar {
+  padding-block: 7px 18px;
+  border-bottom: 1px solid var(--border-light);
+}
+#manage-data .editor-table thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--bg-body-light);
+  box-shadow: 0 1px 0 var(--border-light);
+}
+#manage-data .editor-table tbody tr:hover { background: rgba(99,102,241,.04); }
+#manage-data .editor-table tbody tr.new-row { background: rgba(79,70,229,.045); }
+#manage-data .editor-table .grid-input:focus-visible,
+#manage-data .column-inline-editor input:focus-visible,
+#manage-data .column-inline-editor select:focus-visible,
+#manage-data .column-inline-editor textarea:focus-visible,
+#manage-data .row-action-button:focus-visible,
+#dbLangToggle:focus-visible, #dbThemeToggle:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+}
+#manage-data .editor-table .row-actions {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+}
+#manage-data .helper-text { line-height: 1.75; }
+html[dir="ltr"] .sidebar { border-left: 0; border-right: 1px solid var(--border-light); }
+html[dir="ltr"] .data-table th, html[dir="ltr"] .data-table td { text-align: left; }
+html[dir="ltr"] .column-inline-editor {
+  border-right: 1px solid var(--border-light);
+  border-left: 3px solid #4f46e5;
+}
+html[dir="ltr"] .toast-container { right: auto; left: 20px; }
+html[dir="ltr"] .toast { border-right: 1px solid var(--border-light); border-left: 4px solid #4f46e5; }
+html[dir="ltr"] .toast.success { border-left-color: #047857; }
+html[dir="ltr"] .toast.error { border-left-color: #b91c1c; }
+@media (max-width: 800px) {
+  .top-header { flex-wrap: wrap; }
+  .db-header-actions { justify-content: flex-start; }
+}
